@@ -1,0 +1,3 @@
+The qspec testing library is a specification based unit testing library in the spirit of RSpec (http://rspec.info/).
+
+It also provides a mocking facility for making test setup and teardown easier.
