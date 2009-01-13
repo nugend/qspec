@@ -1,4 +1,4 @@
-\d .mock
+\d .tst
 initStore:store:(enlist `)!enlist (::)
 removeList:()
 
