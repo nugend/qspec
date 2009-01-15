@@ -27,8 +27,8 @@ desc["Blah blah"]{
 
 Possible data structure:
  expec: `name`before`after`code!("...";{...};{...};{...})
- fuzz: `name`before`after`code`times`follows`gen!("...";{...};{...};{...};0N;({...};...);({...};...))
- perf: `name`before`after`code`min`max`times!("...";{...};{...};{...};0Nt;0Nt;0N)
+ fuzz: `name`before`after`code`runs`var!("...";{...};{...};{...};0N;({...};...);[`type | `type$() | `type$n#0 | val | `type$n#val | {...} | `name1`name2!var])
+ perf: `name`before`after`code`max`timeout`times!("...";{...};{...};{...};0Nt;0Nt;0N)
 
  After running, the structures will also hold results (maybe they should just go in their own results dict?):
 
