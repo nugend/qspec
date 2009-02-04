@@ -21,7 +21,7 @@ alt:{[code];                / Alt blocks allow different before/after behavior t
  }
 
 should:{[des;code];
- assertList,: enlist .tst.internals.expecObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter))
+ assertList,: enlist .tst.internals.testObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter))
  }
 
 holds:{[des;props;code];
@@ -32,8 +32,8 @@ perf:{[des;props;code];
  assertList,: enlist .tst.internals.perfObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
  }
 
-uiNames:`before`after`should`holds`perf`alt`mock
-uiCode:(before;after;should;holds;perf;alt;.tst.mock)
+uiNames:`before`after`should`holds`perf`alt
+uiCode:(before;after;should;holds;perf;alt)
 
 .tst.desc:{[title;asserts];
  oldBefore: currentBefore;
