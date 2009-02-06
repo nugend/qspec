@@ -1,5 +1,4 @@
 \d .tst
-fuzzTries: 100
 fuzzListMaxLength:100
 
 typeNames: `boolean`byte`short`int`long`real`float`char`month`date`datetime`minute`second`time
@@ -8,26 +7,26 @@ typeDefaults:(0b;0x0;0h;0;0j;10000e;1000000f;" ";2000.01m;2000.01.01;value (stri
 typeFuzzN: typeNames!typeDefaults
 typeFuzzC: typeCodes!typeDefaults
 
-pickFuzz:{
- $[-11h ~ t:type x;          / [`type] form. Use the default fuzz for the type pneumonic (`symbol/`int/etc)
-  fuzzTries ? typeFuzzN[x];
-  100h ~ type x;             / [{...}] form. function type, x is a fuzz generator
+pickFuzz:{[x;runs]
+ $[-11h ~ t:type x;            / [`type] form. Use the default fuzz for the type pneumonic (`symbol/`int/etc)
+  runs ? typeFuzzN[x];
+  100h ~ type x;               / [{...}] form. function type, x is a fuzz generator
   x[];
-  99h ~ type x;              / [`name1`name2...`nameN!...] form. Wants multiple fuzzes
-  pickFuzz each x;
-  $[(type x) > 0;            / Any list form. Fuzz should be a fuzzy list of fuzz
-   pickListFuzz[x];
-   fuzzTries ? x             / Geneal list/atom value form.
+  99h ~ type x;                / [`name1`name2...`nameN!...] form. Wants multiple fuzzes
+  flip pickFuzz[;runs] each x;
+  $[(type x) > 0;              / Any list form. Fuzz should be a fuzzy list of fuzz
+   pickListFuzz[x;runs];
+   runs ? x                    / Geneal list/atom value form.
    ]]
   } 
 
-pickListFuzz:{
-  $[(count x) = 0;                                                     / [`type$()] form. Use default fuzz by type, but create variable length lists 
-   { y ? typeFuzzC[x]}[abs type x] each fuzzTries ? fuzzListMaxLength;
-   @[0=;first distinct x;0b] and 1 = count distinct x;                 / [`type$n#0] form. Use default fuzz by type with user specified max list length
-   { y ? typeFuzzC[x]}[abs type x] each fuzzTries ? count x;           / Type safe comparison needed (symbol list)
-   1 = count distinct x;                                               / [`type$n#val] form. Use provided value for fuzz generator with specified max length
-   { y ? x }[first x] each fuzzTries ? count x;
-   fuzzTries ? x                                                       / [`type$(val1;val2;val3)] General uniform list form
+pickListFuzz:{[x;runs];
+  $[(count x) = 0;                                                / [`type$()] form. Use default fuzz by type, but create variable length lists 
+   { y ? typeFuzzC[x]}[abs type x] each runs ? fuzzListMaxLength;
+   @[0=;first distinct x;0b] and 1 = count distinct x;            / [`type$n#0] form. Use default fuzz by type with user specified max list length
+   { y ? typeFuzzC[x]}[abs type x] each runs ? count x;           / Type safe comparison needed (symbol list)
+   1 = count distinct x;                                          / [`type$n#val] form. Use provided value for fuzz generator with specified max length
+   { y ? x }[first x] each runs ? count x;
+   runs ? x                                                       / [`type$(val1;val2;val3)] General uniform list form
    ]
  }
