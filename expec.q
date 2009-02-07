@@ -1,13 +1,14 @@
 \d .tst
 runExpec:{[expec];
  expec[`result]:();
+ ((` sv `.q,) each key asserts) .tst.mock' value asserts;
  expec,: @[{x[];()};expec`before;expecError[expec;"before"]];
  / Only run the expectation code when the setup works
  if[not count expec[`result];expec,: @[callExpec;expec;expecError[expec;string expec[`type]]]]; 
  expec,: @[{x[];()};expec`after;expecError[expec;"after"]];
  .tst.restore[];
- / Clear any failure strings made by assertions
- .tst.failures:();
+ / Clear any state for assertions
+ .tst.assertState:.tst.defaultAssertState;
  expec
  }
 
@@ -28,7 +29,8 @@ runners[`perf]:{[expec];}
 runners[`test]:{[expec];
  expec[`code][];
  / We use just a dab of state to communicate with the assertions
- expec[`failures]:.tst.failures;
+ expec[`failures]:.tst.assertState.failures;
+ expec[`assertsRun]:.tst.assertState.assertsRun;
  expec[`result]: $[count expec`failures;`testFail;`pass];
  expec
  }

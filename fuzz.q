@@ -33,17 +33,19 @@ pickListFuzz:{[x;runs];
 
 runners[`fuzz]:{[expec];
  fuzzResults:fuzzRunCollecter[expec`code] each pickFuzz[expec`vars;expec`runs];
- fuzzResults:fuzzResults where not fuzzResults ~\: ();
- expec[`failedFuzz`fuzzFailureMessages]:$[count fuzzResults;fuzzResults;()!()]`failedFuzz`fuzzFailures;
- $[((count fuzzResults)%expec`runs) > expec`maxFailRate; 
-  expec[`failures`result]:(enlist "Over max failure rate";`fuzzFail);
-  expec[`failures`result]:(();`pass)];
+ expec,:exec failedFuzz, fuzzFailureMessages:fuzzFailures from fuzzResults where 0 > count failedFuzz;
+ assertsRun:$[not count fuzzResults;0;max fuzzResults[`assertsRun]];
+ $[((count expec`failedFuzz)%expec`runs) > expec`maxFailRate; 
+  expec[`failures`result`assertsRun]:(enlist "Over max failure rate";`fuzzFail;assertsRun);
+  expec[`failures`result`assertsRun]:(();`pass;assertsRun)];
  expec
  }
 
 fuzzRunCollecter:{[code;fuzz];
- .tst.failures:();
+ .tst.assertState:.tst.defaultAssertState;
  code[fuzz];
- $[count .tst.failures;`failedFuzz`fuzzFailures!(fuzz;.tst.failures);()]
+ $[count .tst.assertState.failures;
+   `failedFuzz`fuzzFailures`assertsRun!(fuzz;.tst.assertState.failures;.tst.assertState.assertsRun);
+   `failedFuzz`fuzzFailures`assertsRun!(();();.tst.assertState.assertsRun)]
  }
  

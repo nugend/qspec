@@ -35,6 +35,16 @@ perf:{[des;props;code];
 uiNames:`before`after`should`holds`perf`alt
 uiCode:(before;after;should;holds;perf;alt)
 
+/ Note on Global References:
+/ Because of the way Q handles global references, we cannot use the code object of the expectations parameter
+/ Instead We take the value string of the object and re-evaluate it to execute a new code object with the 
+/ .q assertions functions in place.  (You may see this by taking an expectation function definition and 
+/ examining the list of globals "(value expectations) 3" without a custom .q function defined and with one
+/ defined. E.g:
+/ (value {2 musteq 2}) 3
+/ .q.musteq: {x+y}
+/ (value {2 musteq 2}) 3
+ 
 .tst.desc:{[title;asserts];
  oldBefore: currentBefore;
  oldAfter: currentAfter;
@@ -44,7 +54,8 @@ uiCode:(before;after;should;holds;perf;alt)
  / set up the UI for the assertion call
  / mock isn't exactly the right name for this usage.  Think of it more like "substitute"
  ((` sv `.,) each uiNames) .tst.mock' uiCode;
- asserts[];
+ ((` sv `.q,) each key asserts) .tst.mock' value asserts; / See Note on Global References
+ (value string assertions)[];                             / See Note on Global References
  specObj[`assertions]:1 _ assertList;
  / Reset environment
  `assertList`currentBefore`currentAfter uiSet' (oldAssertList;oldBefore;oldAfter);
