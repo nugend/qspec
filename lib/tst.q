@@ -3,7 +3,7 @@ if["" ~ @[get;`.tst.LIB_PATH;""];.tst.LIB_PATH:""] / Allow an override for the l
 / This could be used for a pretty generic path search and load module... maybe later
 / Attempt to find and load a list of files in order.  Will only load one file
 .tst.tmp.load_libs:{[files];
- allfiles: files;
+ allfiles:files;
  while[count files;
   if[-11h ~ type key first files;
    system "l ", 1 _ string first files;
@@ -11,7 +11,7 @@ if["" ~ @[get;`.tst.LIB_PATH;""];.tst.LIB_PATH:""] / Allow an override for the l
    ];
    files: 1 _ files
    ];
-  '"File not found in search paths!";
+  '"File not found at library load paths:\n\t", "\n\t" sv 1 _' string allfiles;
  }
 
 .tst.tmp.prep_paths:{
@@ -26,7 +26,7 @@ if["" ~ @[get;`.tst.LIB_PATH;""];.tst.LIB_PATH:""] / Allow an override for the l
  .tst.tmp.load_libs each ` sv'' (.tst.tmp.prep_paths lib_paths) ,\:/: file_paths}
 
 / Raze nested lists to *only* lists of lists
-.tst.tmp.raze1:{x,$[min 0h > type each y;enlist y;.tst.tmp.raze1 y]}/[();]
+.tst.tmp.raze1:{x,$[min 0h > type each y;enlist y;y]}/[();]
 
 .tst.tmp.make_file_list:{$[11h ~ abs type x;x;.tst.tmp.raze1 .z.s each (-1 _ x),/:(last x)]}
 
@@ -39,7 +39,7 @@ if["" ~ @[get;`.tst.LIB_PATH;""];.tst.LIB_PATH:""] / Allow an override for the l
                                             `fuzz.q))))
 
 .tst.tmp.paths: (`LD_LIBRARY_PATH;.tst.LIB_PATH;`QPATH;`Q_PATH)
-.tst.tmp.files: .tst.tmp.raze1 .tst.tmp.make_file_list each .tst.tmp.load_files
+.tst.tmp.files: .tst.tmp.raze1 over .tst.tmp.make_file_list each .tst.tmp.load_files
 
 .tst.tmp.load[.tst.tmp.paths;.tst.tmp.files];
 
