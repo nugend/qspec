@@ -2,6 +2,7 @@
 .tst.defaultAssertState:.tst.assertState:``failures`assertsRun!(::;();0);
 
 internals:()!()
+internals[`]:()!()
 internals[`specObj]:((),`result)!((),`didNotRun)
 internals[`defaultExpecObj]:`result`errorText!(`didNotRun;())
 internals[`testObj]: internals[`defaultExpecObj], ((),`type)!(),`test
