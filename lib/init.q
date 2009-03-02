@@ -4,3 +4,4 @@
 .u.require .u.PKGLOADING,"/tests/ui.q"
 .u.require .u.PKGLOADING,"/tests/expec.q"
 .u.require .u.PKGLOADING,"/tests/fuzz.q"
+.u.require .u.PKGLOADING,"/loader.q""
