@@ -8,7 +8,7 @@ removeList:()
 mock:{[name;newVal];
  name:$[1 = c: count ` vs name;
   / Create fully qualified name if given a local one
-  ` sv (system "d"),name;
+  ` sv .tst.context,name;
   (2 = c) and ` ~ first ` vs name;
   '"Can't mock top-level namespaces!";
   name];

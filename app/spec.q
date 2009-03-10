@@ -22,7 +22,9 @@ app.specs:()
  .tst.app.specs,:enlist specObj;
  }
 
+\d .
 system each "l ",/:.u.args;
+\d .tst
 
 if[not app.runPerformance;.tst.app.specs[;`expectations]: {x .[;();_;]/ where x[;`type] = `perf} each app.specs[;`expectations]];
 if[0 <> count app.runSpecs;.tst.app.specs: specs where (or) over specs[;`title] like/: app.runSpecs];

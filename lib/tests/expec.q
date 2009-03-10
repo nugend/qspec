@@ -1,7 +1,7 @@
 \d .tst
 runExpec:{[expec];
  expec[`result]:();
- ((` sv `.q,) each key asserts) .tst.mock' value asserts;
+ ((` sv `.q,) each `mock,key asserts) .tst.mock' .tst.mock,value asserts;
  expec,: @[{x[];()};expec`before;expecError[expec;"before"]];
  / Only run the expectation code when the setup works
  if[not count expec[`result];expec,: @[callExpec;expec;expecError[expec;string expec[`type]]]]; 
