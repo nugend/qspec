@@ -27,11 +27,11 @@ output[`code]:{[e];
  if[not "{}" ~ last value e[`after];o,:"After code: \n", (last value e[`after]),"\n"];
  o
  }
- 
+
 output[`error]:{[e];
  $[count e[`errorText];"Error: ",(string e[`result]), " '", e[`errorText],"\n";""]
  }
- 
+
 output[`test]:{[t];
  o:"";
  o,:output.error[t];
