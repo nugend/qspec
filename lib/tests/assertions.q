@@ -3,7 +3,7 @@
 asserts:()!()
 asserts[`must]:{[val;message];
   .tst.assertState.assertsRun+:1;
- if[not val;.tst.assertState.failures,: enlist message];
+ if[not all val;.tst.assertState.failures,: enlist message];
  }
 
 asserts[`musteq]:{[l;r]; asserts.must[l=r;"Expected ", (string l), " to be equal to ", (string r)]}
