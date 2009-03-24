@@ -1,18 +1,20 @@
 \d .tst
-.u.require "qutil/opts.q"
-.u.require "qspec"
+.utl.require "qutil/opts.q"
+.utl.require "qspec"
 .tst.loadOutputModule["text"]
 .tst.app.excludeSpecs:();
 .tst.app.runSpecs:();
 .tst.output.mode: `run
 
-.u.addOpt["desc,describe";1b;`.tst.app.describeOnly]
-.u.addOpt["perf,performance";1b;`.tst.app.runPerformance]
-.u.addOpt["exclude";(),"*";`.tst.app.excludeSpecs]
-.u.addOpt["only";(),"*";`.tst.app.runSpecs]
-.u.addOpt["pass";1b;`.tst.app.passOnly]
-.u.addOpt["noquit";0b;`.tst.app.exit]
-.u.addOpt["perf-display-limt,pdf";"I";`.tst.output.fuzzLimit]
+.utl.addOpt["desc,describe";1b;`.tst.app.describeOnly]
+.utl.addOpt["perf,performance";1b;`.tst.app.runPerformance]
+.utl.addOpt["exclude";(),"*";`.tst.app.excludeSpecs]
+.utl.addOpt["only";(),"*";`.tst.app.runSpecs]
+.utl.addOpt["pass";1b;`.tst.app.passOnly]
+.utl.addOpt["noquit";0b;`.tst.app.exit]
+.utl.addOpt["perf-display-limt,pdf";"I";`.tst.output.fuzzLimit]
+
+if[not count .utl.args;1 "Must supply files to load!";exit 1]
 
 if[app.describeOnly;.tst.output.mode:`describe];
 
@@ -23,7 +25,7 @@ app.specs:()
  }
 
 \d .
-(.tst.loadTests hsym `$) each .u.args;
+(.tst.loadTests hsym `$) each .utl.args;
 \d .tst
 
 if[not app.runPerformance;.tst.app.specs[;`expectations]: {x .[;();_;]/ where x[;`type] = `perf} each app.specs[;`expectations]];
