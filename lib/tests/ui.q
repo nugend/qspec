@@ -56,6 +56,7 @@ uiCode:(before;after;should;holds;perf;alt)
  ((` sv `.q,) each `mock,uiNames,key asserts) .tst.mock' .tst.mock,uiCode,value asserts; / See Note on Global References
  (value string expectations)[];                           / See Note on Global References
  specObj[`context]: system "d";
+ specObj[`tstPath]: .utl.FILELOADING;
  specObj[`expectations]:1 _ expecList;
  / Reset environment
  `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);

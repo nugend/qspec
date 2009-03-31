@@ -1,5 +1,6 @@
 \d .tst
 .tst.defaultAssertState:.tst.assertState:``failures`assertsRun!(::;();0);
+.tst.tstPath: `;
 
 internals:()!()
 internals[`]:()!()
