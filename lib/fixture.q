@@ -2,29 +2,43 @@
 / Ideas:
 / .tst.VAR containing possible fixture paths
 / Environment variable with fixture paths?
-.tst.fixtureAs:{[fixtureName;altName];
+.tst.fixtureAs:{[fixtureName;name];
  dirPath: (` vs .tst.tstPath) 0;
- fixtures: $[fixtureName in key dirPath;
- ` sv dirPath,fixtureName;
- (`fixtures in key dirPath) and (fixtureName) in key ` sv dirPath,`fixtures;
- ` sv dirPath,`fixtures,fixtureName;
+ fixtureInDir:{$[any mp:x = (` vs' ps:(key y))[;0];` sv y,first ps where mp;`]};
+ fixture: $[not ` ~ fp:fixtureInDir[fixtureName;dirPath];
+ loadFixture[fp;name];
+ (`fixtures in key dirPath) and not ` ~ fp:fixtureInDir[fixtureName;` sv dirPath,`fixtures];
+ loadFixture[fp;name];
  '"Error"];
+ fixture ^ name
+ }
+
+.tst.loadFixture:{[path;name];
+ $[2 = count n:` vs (` vs path) 1; / If there is an extension on the file path of the fixture
+  loadFixtureTxt[path;name];
+  -11h = type key path;
+  loadFixtureFile[path;name];
+  [$[` ~ .tst.currentDirFixture;saveDir[];removeDirVars[]];
+   if[not (first n) ~ .tst.currentDirFixture;system "l ", 1 _ string path;
+   .tst.currentDirFixture: first n;
+   ];]];
+ first n
  }
 
 .tst.fixture:.tst.fixtureAs[;`]
+.tst.currentDirFixture:`
 
-.tst.loadFixtureTxt:{[f;altName];
- fname: ((` vs (` vs f) 1) 0) ^ altName;
+.tst.loadFixtureTxt:{[f;name];
+ fname: ((` vs (` vs f) 1) 0) ^ name;
  .tst.mock[fname;(raze l[0;1] vs l[0];enlist l[0;1]) 0: 1 _ l: read0 f];
  fname
  }
 
-.tst.loadFixtureFile:{[f;altName];
- .tst.mock[fname:((` vs f) 1) ^ altName;get f];
+.tst.loadFixtureFile:{[f;name];
+ .tst.mock[fname:((` vs f) 1) ^ name;get f];
  fname
  }
 
-.tst.currentDirFixture:`
 .tst.savedDir:.tst.defaultSavedDir:`directory`vars!("";(`,())!(),(::))
 saveDir:{
  if[not () ~ dirVars: findDirVars[];
@@ -35,6 +49,7 @@ saveDir:{
 removeDirVars:{![`.;();0b;] $[(::) ~ x;findDirVars[];x]}
 
 restoreDir:{
+ if[not ` ~ .tst.currentDirFixture;removeDirVars[]];
  if[not "" ~ .tst.savedDir.directory;
   system "l ", .tst.savedDir.directory;
   (key .tst.savedDir.vars) set' value .tst.savedDir.vars;

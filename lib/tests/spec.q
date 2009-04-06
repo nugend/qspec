@@ -8,6 +8,7 @@ runSpec:{
  x:@[x;`expectations;runExpec each];
  .tst.context: oldContext;
  .tst.tstPath: `;
+ .tst.restoreDir[];
  x[`result]:$[all `pass = x[`expectations;;`result];`pass;`fail];
  x
  }

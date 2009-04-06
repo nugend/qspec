@@ -32,6 +32,8 @@ perf:{[des;props;code];
  expecList,: enlist .tst.internals.perfObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
  }
 
+uiRuntimeNames:`fixture`fixtureAs`mock
+uiRuntimeCode: (.tst.fixture;.tst.fixtureAs;.tst.mock)
 uiNames:`before`after`should`holds`perf`alt
 uiCode:(before;after;should;holds;perf;alt)
 
@@ -53,7 +55,7 @@ uiCode:(before;after;should;holds;perf;alt)
  specObj[`title]:title;
  / set up the UI for the expectation call
  / mock isn't exactly the right name for this usage.  Think of it more like "substitute"
- ((` sv `.q,) each `fixture`mock,uiNames,key asserts) .tst.mock' (.tst.fixture;.tst.mock),uiCode,value asserts; / See Note on Global References
+ ((` sv `.q,) each uiRuntimeNames,uiNames,key asserts) .tst.mock' uiRuntimeCode,uiCode,value asserts; / See Note on Global References
  (value string expectations)[];                           / See Note on Global References
  specObj[`context]: system "d";
  specObj[`tstPath]: .utl.FILELOADING;
