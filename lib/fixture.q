@@ -1,7 +1,5 @@
+/ Need to manage directories or only attempt to use absolute paths (latter is probably easier)
 \d .tst
-/ Ideas:
-/ .tst.VAR containing possible fixture paths
-/ Environment variable with fixture paths?
 .tst.fixtureAs:{[fixtureName;name];
  dirPath: (` vs .tst.tstPath) 0;
  fixtureInDir:{$[any mp:x = (` vs' ps:(key y))[;0];` sv y,first ps where mp;`]};
@@ -9,24 +7,32 @@
  loadFixture[fp;name];
  (`fixtures in key dirPath) and not ` ~ fp:fixtureInDir[fixtureName;` sv dirPath,`fixtures];
  loadFixture[fp;name];
- '"Error"];
+ '"Error loading fixture '", (string fixtureName), "', not found in:\n\t", (1 _ string dirPath),"\n\t", (1 _ string ` sv dirPath,`fixtures)];
  fixture ^ name
  }
 
 .tst.loadFixture:{[path;name];
- $[2 = count n:` vs (` vs path) 1; / If there is an extension on the file path of the fixture
+ $[2 = count fixtureName:` vs (` vs path) 1; / If there is an extension on the file path of the fixture
   loadFixtureTxt[path;name];
   -11h = type key path;
   loadFixtureFile[path;name];
-  [$[` ~ .tst.currentDirFixture;saveDir[];removeDirVars[]];
-   if[not (first n) ~ .tst.currentDirFixture;system "l ", 1 _ string path;
-   .tst.currentDirFixture: first n;
-   ];]];
- first n
+  loadFixtureDir[path;name]];
+ first fixtureName
  }
 
 .tst.fixture:.tst.fixtureAs[;`]
 .tst.currentDirFixture:`
+
+.tst.loadFixtureDir:{[f;name];
+ fixtureName: (` vs f) 1;
+ dirFixtureLoaded: not ` ~ .tst.currentDirFixture;
+ if[not dirFixtureLoaded;saveDir[];];
+ if[not fixtureName ~ .tst.currentDirFixture;
+  if[dirFixtureLoaded;removeDirVars[];];
+  system "l ", 1 _ string f;
+  .tst.currentDirFixture: fixtureName;
+  ];
+ }
 
 .tst.loadFixtureTxt:{[f;name];
  fname: ((` vs (` vs f) 1) 0) ^ name;
