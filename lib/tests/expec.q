@@ -2,10 +2,12 @@
 runExpec:{[expec];
  expec[`result]:();
  ((` sv `.q,) each uiRuntimeNames,key asserts) .tst.mock' uiRuntimeCode,value asserts;
+ system "d ", string .tst.context;
  expec,: @[{x[];()};expec`before;expecError[expec;"before"]];
  / Only run the expectation code when the setup works
  if[not count expec[`result];expec,: @[callExpec;expec;expecError[expec;string expec[`type]]]]; 
  expec,: @[{x[];()};expec`after;expecError[expec;"after"]];
+ system "d .tst";
  .tst.restore[];
  / Clear any state for assertions
  .tst.assertState:.tst.defaultAssertState;
