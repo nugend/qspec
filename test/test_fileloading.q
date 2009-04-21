@@ -10,4 +10,8 @@
  should["find all test files in a list of paths"]{
   (asc ` sv' `a`b`c`d`d`f`g,'`q) musteq asc (` vs' .tst.findTests[value pathList])[;1];
   };
+ should["return a q file given a q file"]{
+  path: ` sv (value pathList)[0],`one`a.q; / Happen to know this file exists
+  path musteq .tst.findTests[path];
+  };
  };
