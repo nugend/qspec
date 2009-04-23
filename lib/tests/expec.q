@@ -17,6 +17,8 @@ runExpec:{[expec];
 expecError:{[expec;errorType;errorText];
  expec[`result]: `$errorType,"Error";
  expec[`errorText],:errorText;
+ expec[`failures]:.tst.assertState.failures;
+ expec[`assertsRun]:.tst.assertState.assertsRun;
  expec
  }
 
