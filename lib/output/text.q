@@ -1,6 +1,6 @@
 \d .tst
 
-typeNames:`test`fuzz`perf!("should";"it holds that";"performs")
+expecTypes:`test`fuzz`perf!("should";"it holds that";"performs")
 
 output:()!()
 output[`spec]:{[spec];
@@ -13,7 +13,7 @@ output[`spec]:{[spec];
  }
  
 output[`expectation]:{[e];
- o: "- ",typeNames[e`type]," ",e[`desc],$[.tst.output.mode ~ `describe;"";":"],"\n";
+ o: "- ",expecTypes[e`type]," ",e[`desc],$[.tst.output.mode ~ `describe;"";":"],"\n";
  if[not .tst.output.mode ~ `describe;
   o,:output[e`type][e];
  ];
