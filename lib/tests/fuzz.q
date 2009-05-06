@@ -1,9 +1,9 @@
 \d .tst
 fuzzListMaxLength:100
 
-typeNames: `boolean`byte`short`int`long`real`float`char`month`date`datetime`minute`second`time
-typeCodes: 1 4 5 6 7 8 9 10 13 14 15 17 18 19h
-typeDefaults:(0b;0x0;0h;0;0j;10000e;1000000f;" ";2000.01m;2000.01.01;value (string `year$.z.D),".12.31T23:59:59.999";00:00;00:00:00;00:00:00.000)
+typeNames: `boolean`byte`short`int`long`real`float`char`symbol`month`date`datetime`minute`second`time
+typeCodes: 1 4 5 6 7 8 9 10 11 13 14 15 17 18 19h
+typeDefaults:(0b;0x0;0h;0;0j;10000e;1000000f;" ";`7;2000.01m;2000.01.01;value (string `year$.z.D),".12.31T23:59:59.999";00:00;00:00:00;00:00:00.000)
 typeFuzzN: typeNames!typeDefaults
 typeFuzzC: typeCodes!typeDefaults
 
