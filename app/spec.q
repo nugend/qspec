@@ -6,7 +6,7 @@
 .tst.app.runSpecs:();
 .tst.output.mode: `run
 
-.utl.addOpt["desc,describe";1b;`.tst.app.describeOnly]
+.utl.addOpt["desc,describe";1b;(`.tst.app.describeOnly;{if[x;.tst.output.mode:`describe;];x})]
 .utl.addOpt["perf,performance";1b;`.tst.app.runPerformance]
 .utl.addOpt["exclude";(),"*";`.tst.app.excludeSpecs]
 .utl.addOpt["only";(),"*";`.tst.app.runSpecs]
@@ -15,8 +15,6 @@
 .utl.addOpt["perf-display-limt,pdf";"I";`.tst.output.fuzzLimit]
 
 if[not count .utl.args;1 "Must supply files to load!";exit 1]
-
-if[app.describeOnly;.tst.output.mode:`describe];
 
 app.specs:()
 
