@@ -1,8 +1,71 @@
 
 .tst.desc["Fuzz expectations"]{
- should["let you set the number of runs"]{};
- should["let you set the maximum percentage of failures"]{};
- should["not restore mocked variables after every fuzz run"]{};
+ before{
+  `.tst.contextHelper mock {[x;y] system "d ", string x} system "d"; / Need to change back to the proper execution context after every call that refers to a mocked variable in the current context
+  `myRestore mock .tst.restore; / Mocking restore so the UI doesn't get clobbered
+  `.tst.restore mock {};
+  `.tst.expecList mock .tst.expecList;
+  };
+ after{
+  myRestore[];
+  };
+ should["run the fuzz test the number of times specified"]{
+  `ran mock 0;
+  holds["run this";((),`runs)!(),20]{ran+:1};
+  e: last .tst.expecList;
+  .tst.runExpec e;
+  .tst.contextHelper[];
+  ran musteq 20;
+  `ran mock 0;
+  holds["run this";((),`runs)!(),40]{ran+:1};
+  e: last .tst.expecList;
+  .tst.runExpec e;
+  .tst.contextHelper[];
+  ran musteq 40;
+  };
+ should["fail when the percentage of failures exceeds the maximum percentage of failures"]{
+  oldFailures: .tst.assertState.failures; / Don't want intentional failures made in the name of testing to cause a test failure
+  `ran mock 0;
+  holds["run this";`runs`maxFailRate!(20;.5)]{
+   ran+:1;
+   if[ran > 9; 1 musteq 2]; / Force failure for a certain percentage
+   };
+  e: last .tst.expecList;
+  e:.tst.runExpec e;
+  .tst.contextHelper[];
+  testedFailures: .tst.assertState.failures;
+  .tst.assertState.failures:oldFailures;
+  e[`failRate] mustgt .5;
+  e[`result] mustlike "*Fail";
+  };
+ should["not restore mocked variables between fuzz runs"]{
+  `ran mock 0;
+  holds["run this";((),`runs)!(),20]{ran+:1};
+  e: last .tst.expecList;
+  .tst.runExpec e;
+  .tst.contextHelper[];
+  ran musteq 20;
+  };
+ should["provide fuzz variables to the function"]{
+  `aVar mock 0b;
+  `bVar mock 0b;
+  `cVar mock 0b;
+  `xKey mock `symbol$();
+  holds["run this";(`runs`vars)!(1;`a`b`c!(`symbol;1 2 3;20#0Nd))]{
+   xKey:: key x;
+   aVar:: x`a;
+   bVar:: x`b;
+   cVar:: x`c;
+   };
+  e: last .tst.expecList;
+  .tst.runExpec e;
+  .tst.contextHelper[];
+  `a`b`c mustin xKey;
+  type[aVar] musteq -11h;
+  x[bVar] mustin 1 2 3;
+  count[cVar] mustlt 20;
+  type[cVar] musteq 14h;
+  };
  };
 
 .tst.desc["The Fuzz Generator"]{
@@ -25,7 +88,7 @@
   };
  should["return a list of elements from a general list"]{
   l: (10;`a;"foo";`a`b`c!1 2 3);
-  .tst.pickFuzz[l;20] mustin l;
+  (10,.tst.pickFuzz[l;20]) mustin l; / Force the list to start with an atom so the comparison works right
   };
  should["return a list of elements from a typed list"]{
   l: 10 30 33 22 80 4;
