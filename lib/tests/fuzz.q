@@ -11,7 +11,7 @@ pickFuzz:{[x;runs]
  $[-11h ~ t:type x;            / [`type] form. Use the default fuzz for the type pneumonic (`symbol/`int/etc)
   runs ? typeFuzzN[x];
   100h ~ type x;               / [{...}] form. function type, x is a fuzz generator
-  x[];
+  x each til runs;
   99h ~ type x;                / [`name1`name2...`nameN!...] form. Wants multiple fuzzes
   flip pickFuzz[;runs] each x;
   $[(type x) > 0;              / Any list form. Fuzz should be a fuzzy list of fuzz
@@ -23,7 +23,7 @@ pickFuzz:{[x;runs]
 pickListFuzz:{[x;runs];
   $[(count x) = 0;                                                / [`type$()] form. Use default fuzz by type, but create variable length lists 
    { y ? typeFuzzC[x]}[abs type x] each runs ? fuzzListMaxLength;
-   @[0=;first distinct x;0b] and 1 = count distinct x;            / [`type$n#0] form. Use default fuzz by type with user specified max list length
+   null[first distinct x] and 1 = count distinct x;               / [`type$n#0N] form. Use default fuzz by type with user specified max list length
    { y ? typeFuzzC[x]}[abs type x] each runs ? count x;           / Type safe comparison needed (symbol list)
    1 = count distinct x;                                          / [`type$n#val] form. Use provided value for fuzz generator with specified max length
    { y ? x }[first x] each runs ? count x;
