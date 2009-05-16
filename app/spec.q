@@ -18,9 +18,29 @@ if[not count .utl.args;-1 "Must supply files to load!";exit 1]
 
 app.specs:()
 
+app.expectationsRan:0
+app.expectationsPassed:0
+app.expectationsFailed:0
+app.expectationsErrored:0
+
 .tst.callbacks.loadDesc:{[specObj];
  .tst.app.specs,:enlist specObj;
  }
+
+if[not[app.describeOnly] and not app.passOnly; / Only want to print this when running to see results
+ .tst.callbacks.expecRan:{[e];
+  app.expectationsRan+:1;
+  r:e[`result];
+  if[r ~ `pass; app.expectationsPassed+:1];
+  if[r in `fail`fuzzFail; app.expectationsFailed+:1];
+  if[r like "*Error"; app.expectationsErrored+:1];
+  1 $[r ~ `pass;".";
+   r in `fail`fuzzFail;"F";
+   r ~ `afterError;"B";
+   r ~ `afterError;"A";
+   "E"];
+  }
+ ];
 
 \d .
 (.tst.loadTests hsym `$) each .utl.args;
@@ -36,6 +56,11 @@ app.passed:all `pass = app.results[;`result];
 if[not app.passOnly; 
  if[not app.passed;
   -1 raze .tst.output.spec each app.results;
+  ];
+ if[not app.describeOnly;
+  1 "\n\n";
+  -1 "For ", string[count app.specs], " specifications, ", string[app.expectationsRan]," expectations were run.";
+  -1 string[app.expectationsPassed]," passed, ",string[app.expectationsFailed]," failed.  ",string[app.expectationsErrored]," errors.";
   ];
  ];
 
