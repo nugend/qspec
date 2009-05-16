@@ -26,7 +26,7 @@
    `callbackCalled mock 0b;
    `.tst.callbacks.loadDesc mock {`callbackCalled set 1b};
    .tst.desc["Blah"]{};
-   must[callbackCalled;"Expected for the loadDesc callback to be called"];
+   must[callbackCalled;"Expected the loadDesc callback to have been called"];
    };
   };
  should["let you set a before function"]{
