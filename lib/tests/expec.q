@@ -11,6 +11,7 @@ runExpec:{[expec];
  .tst.restore[];
  / Clear any state for assertions
  .tst.assertState:.tst.defaultAssertState;
+ .tst.callbacks.expecRan[expec];
  expec
  }
 

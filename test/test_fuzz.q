@@ -5,6 +5,7 @@
   `myRestore mock .tst.restore; / Mocking restore so the UI doesn't get clobbered
   `.tst.restore mock {};
   `.tst.expecList mock .tst.expecList;
+  `.tst.callbacks.expecRan mock {}; / Mock this out so expectations run TO test running expectations don't count towards test expectations ran
   };
  after{
   myRestore[];
