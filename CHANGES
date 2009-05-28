@@ -1,2 +1,6 @@
+VERSION 0.1.1 -- 2009.05.27
+* Fixed bug with mustwithin assertion
+* Fixed bug with command line display
+
 VERSION 0.1 -- 2009.05.25
 * Initial Version
