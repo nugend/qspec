@@ -54,11 +54,11 @@ app.results: $[not app.describeOnly;.tst.runSpec each app.specs;app.specs]
 
 app.passed:all `pass = app.results[;`result];
 if[not app.passOnly; 
+ if[not app.describeOnly;-1 "\n"];
  if[not app.passed;
   -1 raze .tst.output.spec each app.results;
   ];
  if[not app.describeOnly;
-  1 "\n\n";
   -1 "For ", string[count app.specs], " specifications, ", string[app.expectationsRan]," expectations were run.";
   -1 string[app.expectationsPassed]," passed, ",string[app.expectationsFailed]," failed.  ",string[app.expectationsErrored]," errors.";
   ];
