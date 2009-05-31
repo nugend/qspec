@@ -23,7 +23,7 @@ app.expectationsPassed:0
 app.expectationsFailed:0
 app.expectationsErrored:0
 
-.tst.callbacks.loadDesc:{[specObj];
+.tst.callbacks.descLoaded:{[specObj];
  .tst.app.specs,:enlist specObj;
  }
 

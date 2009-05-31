@@ -3,7 +3,7 @@
   before{
    `myRestore mock .tst.restore;
    `.tst.restore mock {};
-   `.tst.callbacks.loadDesc mock {};
+   `.tst.callbacks.descLoaded mock {};
    `.tst.mock mock {[x;y]};
   };
   after{
@@ -22,11 +22,11 @@
    system "d ", oldContext;
    `.foo musteq myDesc`context;
    };
-  should["call the loadDesc callback when a new specification is defined"]{
+  should["call the descLoaded callback when a new specification is defined"]{
    `callbackCalled mock 0b;
-   `.tst.callbacks.loadDesc mock {`callbackCalled set 1b};
+   `.tst.callbacks.descLoaded mock {`callbackCalled set 1b};
    .tst.desc["Blah"]{};
-   must[callbackCalled;"Expected the loadDesc callback to have been called"];
+   must[callbackCalled;"Expected the descLoaded callback to have been called"];
    };
   };
  should["let you set a before function"]{
