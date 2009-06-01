@@ -1,3 +1,9 @@
+VERSION 0.1.2 -- 2009.05.31
+* Fixed bug where splayed table would not load as fixture
+* Fixed assertion output messages for mustlt and mustgt
+* Changed loadDesc callback to descLoaded
+* Changed test runner option name for display limit
+
 VERSION 0.1.1 -- 2009.05.27
 * Fixed bug with mustwithin assertion
 * Fixed bug with command line display
