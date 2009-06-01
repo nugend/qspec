@@ -10,8 +10,8 @@ asserts[`musteq]:{[l;r]; asserts.must[l=r;"Expected ", (-3!l), " to be equal to 
 asserts[`mustmatch]:{[l;r]; asserts.must[l~r;"Expected ", (-3!l), " to match ", (-3!r)]}
 asserts[`mustnmatch]:{[l;r]; asserts.must[not l~r;"Expected ", (-3!l), " to not match ", (-3!r)]}
 asserts[`mustne]:{[l;r]; asserts.must[l<>r;"Expected ", (-3!l), " to not be equal to ", (-3!r)]}
-asserts[`mustlt]:{[l;r]; asserts.must[l<r;"Expected ", (-3!l), " to not be less than ", (-3!r)]}
-asserts[`mustgt]:{[l;r]; asserts.must[l>r;"Expected ", (-3!l), " to not be greater than ", (-3!r)]}
+asserts[`mustlt]:{[l;r]; asserts.must[l<r;"Expected ", (-3!l), " to be less than ", (-3!r)]}
+asserts[`mustgt]:{[l;r]; asserts.must[l>r;"Expected ", (-3!l), " to be greater than ", (-3!r)]}
 asserts[`mustlike]:{[l;r]; asserts.must[l like r;"Expected ", (-3!l), " to be like ", (-3!r)]}
 asserts[`mustin]:{[l;r]; asserts.must[l in r;"Expected ", (-3!l), " to be in ", (-3!r)]}
 asserts[`mustnin]:{[l;r]; asserts.must[not l in r;"Expected ", (-3!l), " to not be in ", (-3!r)]}
