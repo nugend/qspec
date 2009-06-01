@@ -15,6 +15,8 @@
   .tst.loadFixtureTxt[path;name];
   -11h = type key path;
   .tst.loadFixtureFile[path;name];
+  all -11h = (type key@) each ` sv' path,'key path; / If the path is a directory of files (splayed dir)
+  .tst.loadFixtureFile[path;name];
   .tst.loadFixtureDir[path;name]];
  first fixtureName
  }
