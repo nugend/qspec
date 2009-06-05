@@ -23,7 +23,7 @@ app.specs:()
  }
 
 \d .
-system each "l ",/:.u.args;
+(.tst.loadTests hsym `$) each .u.args;
 \d .tst
 
 if[not app.runPerformance;.tst.app.specs[;`expectations]: {x .[;();_;]/ where x[;`type] = `perf} each app.specs[;`expectations]];
