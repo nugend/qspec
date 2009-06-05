@@ -2,7 +2,7 @@
 
 loadTests:{[paths]; interpretTest each findTests[paths]}
 
-interpretTest:{[path] system "l ", 1 _ string path}
+interpretTest:{[path] .utl.require path}
 
 findTests:{[paths];
  raze suffixMatch[;".q"] each distinct (),paths
