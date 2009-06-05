@@ -1,0 +1,6 @@
+.u.require .u.PKGLOADING,"/mock.q"
+.u.require .u.PKGLOADING,"/tests/internals.q"
+.u.require .u.PKGLOADING,"/tests/assertions.q"
+.u.require .u.PKGLOADING,"/tests/ui.q"
+.u.require .u.PKGLOADING,"/tests/expec.q"
+.u.require .u.PKGLOADING,"/tests/fuzz.q"
