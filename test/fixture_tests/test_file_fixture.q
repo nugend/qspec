@@ -15,4 +15,10 @@
    };
   myFixture mustmatch someVariable;
   };
+ alt{
+  before{fixture `splayFixture};
+  should["load a splayed directory as a file fixture"]{
+   ([]a:1 2 3;b:4 5 6) mustmatch splayFixture;
+   };
+  };
  };
