@@ -74,6 +74,6 @@
   e: last .tst.expecList;
   .tst.runExpec e;
   .tst.contextHelper[];
-   must[callbackCalled;"Expected the loadDesc callback to have been called"];
+   must[callbackCalled;"Expected the descLoaded callback to have been called"];
   };
  };
