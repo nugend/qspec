@@ -1,3 +1,49 @@
-The qspec testing library is a specification based unit testing library in the spirit of RSpec (http://rspec.info/).
+== ABOUT ==
 
-It also provides a mocking facility for making test setup and teardown easier.
+qspec is a testing framework for the Q programming language
+lightly inspired by Behaviour Driven Development and the
+rspec testing framework (http://rspec.info/).  It provides
+functions for the creation of unit tests, a command line
+tool for running and displaying the results of unit tests,
+and some callbacks for defining new tools based on unit
+tests (as all test objects are handled as Q objects,
+typically dictionaries).  It is written entirely Q and
+should be cross platform.
+
+== INSTALLATION ==
+
+qspec as it is distributed requires the installation of the
+qutil library (http://github.org/DannoHung/qutil). Follow
+the qutil instructions and then unzip qspec to an acceptable
+location within the Q source code search path that you will
+have specified.
+
+If this is unacceptable, search within the project for all
+instances of the keyword ".utl" and replace the
+corresponding methods with functions that work with your
+existing codebase.  The behaviors from qutil used are
+finding and loading files based on provided paths and
+interpreting options to the command line tool. If you intend
+to keep up to date with release, I would recommend
+developing a script to perform substitutions for you.
+
+
+== LICENSE ==
+
+This code is licensed under an MIT license.  See LICENSE for
+the full text.
+
+== MISC ==
+
+While you are under no obligation to do so, if you have
+changes to the code that you feel would be useful to others,
+please contribute them back.  If you have suggestions,
+please make them.  If you have found a bug, please report
+it.
+
+
+== CONTACT ==
+
+Daniel Nugent 
+nugend@gmail.com
+http://github.com/DannoHung/qspec
