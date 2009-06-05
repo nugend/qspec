@@ -33,9 +33,9 @@ pickListFuzz:{[x;runs];
 
 runners[`fuzz]:{[expec];
  fuzzResults:fuzzRunCollecter[expec`code] each pickFuzz[expec`vars;expec`runs];
- expec,:exec failedFuzz, fuzzFailureMessages:fuzzFailures from fuzzResults where 0 > count failedFuzz;
+ expec,:exec failedFuzz, fuzzFailureMessages:fuzzFailures from fuzzResults where 0 < count each failedFuzz;
  assertsRun:$[not count fuzzResults;0;max fuzzResults[`assertsRun]];
- $[((count expec`failedFuzz)%expec`runs) > expec`maxFailRate; 
+ $[(expec[`failRate]:(count expec`failedFuzz)%expec`runs) > expec`maxFailRate; 
   expec[`failures`result`assertsRun]:(enlist "Over max failure rate";`fuzzFail;assertsRun);
   expec[`failures`result`assertsRun]:(();`pass;assertsRun)];
  expec

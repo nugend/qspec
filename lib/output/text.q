@@ -43,7 +43,19 @@ output[`test]:{[t];
  o,"\n"
  }
 
+output[`fuzzLimit]:10;
 output[`fuzz]:{[f];
+ o:"";
+ o,:output.error[f];
+ if[(`failures in key f) and count f[`failures];
+  o,:raze "Failure: ",/:f[`failures],\: "\n";
+  o,:"Maximum accepted failure rate: ", (string f[`maxFailRate]), "\n";
+  o,:"Failure rate was ", (string f[`failRate]), " for ", (string f[`runs]), " runs\n";
+  o,:"Displaying ", (string displayFuzz:min (.tst.output.fuzzLimit;count f[`fuzzFailureMessages])), " of ", (string count f[`fuzzFailureMessages]), " fuzz failures messages\n";
+  o,:raze (raze displayFuzz # f[`fuzzFailureMessages]),\:"\n";
+  ];
+ o,:output.code[f];
+ o,"\n"
  }
 
 output[`perf]:{[p];
