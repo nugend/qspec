@@ -10,6 +10,8 @@ internals[`testObj]: internals[`defaultExpecObj], ((),`type)!(),`test
 internals[`fuzzObj]: internals[`defaultExpecObj], `type`runs`vars`maxFailRate!(`fuzz;100;`int;0f)
 internals[`perfObj]: internals[`defaultExpecObj], ((),`type)!(),`perf
 
-callbacks:((),`)!(),(::)
-callbacks[`loadDesc]:{}
+if[not `callbacks in key .tst; / Avoid callback overwriting issue when dogfooding
+ callbacks:((),`)!(),(::);
+ callbacks[`loadDesc]:{};
+ ];
 
