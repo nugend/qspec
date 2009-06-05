@@ -29,8 +29,8 @@ app.specs:()
 \d .tst
 
 if[not app.runPerformance;.tst.app.specs[;`expectations]: {x .[;();_;]/ where x[;`type] = `perf} each app.specs[;`expectations]];
-if[0 <> count app.runSpecs;.tst.app.specs: specs where (or) over specs[;`title] like/: app.runSpecs];
-if[0 <> count app.excludeSpecs;.tst.app.specs: specs where not (or) over specs[;`title] like/: app.excludeSpecs];
+if[0 <> count app.runSpecs;.tst.app.specs: app.specs where (or) over app.specs[;`title] like/: app.runSpecs];
+if[0 <> count app.excludeSpecs;.tst.app.specs: app.specs where not (or) over app.specs[;`title] like/: app.excludeSpecs];
  
 app.results: $[not app.describeOnly;.tst.runSpec each app.specs;app.specs]
 
