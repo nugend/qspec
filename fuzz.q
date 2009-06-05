@@ -30,3 +30,20 @@ pickListFuzz:{[x;runs];
    runs ? x                                                       / [`type$(val1;val2;val3)] General uniform list form
    ]
  }
+
+runners[`fuzz]:{[expec];
+ fuzzResults:fuzzRunCollecter[expec`code] each pickFuzz[expec`vars;expec`runs];
+ fuzzResults:fuzzResults where not fuzzResults ~\: ();
+ expec[`failedFuzz`fuzzFailureMessages]:$[count fuzzResults;fuzzResults;()!()]`failedFuzz`fuzzFailures;
+ $[((count fuzzResults)%expec`runs) > expec`maxFailRate; 
+  expec[`failures`result]:(enlist "Over max failure rate";`fuzzFail);
+  expec[`failures`result]:(();`pass)];
+ expec
+ }
+
+fuzzRunCollecter:{[code;fuzz];
+ .tst.failures:();
+ code[fuzz];
+ $[count .tst.failures;`failedFuzz`fuzzFailures!(fuzz;.tst.failures);()]
+ }
+ 
