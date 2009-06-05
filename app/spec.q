@@ -12,7 +12,7 @@
 .utl.addOpt["only";(),"*";`.tst.app.runSpecs]
 .utl.addOpt["pass";1b;`.tst.app.passOnly]
 .utl.addOpt["noquit";0b;`.tst.app.exit]
-.utl.addOpt["perf-display-limt,pdf";"I";`.tst.output.fuzzLimit]
+.utl.addOpt["fuzz-display-limt,fdl";"I";`.tst.output.fuzzLimit]
 
 if[not count .utl.args;-1 "Must supply files to load!";exit 1]
 
