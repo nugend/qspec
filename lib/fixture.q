@@ -54,7 +54,9 @@
 .tst.removeDirVars:{![`.;();0b;] $[(::) ~ x;.tst.findDirVars[];x]}
 
 .tst.restoreDir:{
- if[not ` ~ .tst.currentDirFixture;.tst.removeDirVars[]];
+ if[not ` ~ .tst.currentDirFixture;
+  .tst.removeDirVars[];
+   .tst.currentDirFixture:`];
  if[not "" ~ .tst.savedDir.directory;
   system "l ", .tst.savedDir.directory;
   (key .tst.savedDir.vars) set' value .tst.savedDir.vars;
