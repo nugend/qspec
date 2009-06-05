@@ -4,7 +4,7 @@ removeList:()
 
 / Used to replace the variable specified by name with newVal.  Existing values will be clobbered
 / until restored.  Standard variable re-assignment caveats apply
-/ CAUTION: Mocking out the mock module is inadvisable
+/ CAUTION: Mocking out the mock functions and variables is inadvisable
 mock:{[name;newVal];
  name:$[1 = c: count ` vs name;
   / Create fully qualified name if given a local one
@@ -19,7 +19,7 @@ mock:{[name;newVal];
  name set newVal
  }
 
-/ Restores the environment to the previous state before any .mock.mock calls were made
+/ Restores the environment to the previous state before any .tst.mock calls were made
 restore:{
  / Restore all fully qualified symbols
  (set') . (key;value) @\: 1 _ store;
