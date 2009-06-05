@@ -9,9 +9,9 @@ if["" ~ @[get;`.tst.LIB_PATH;""];.tst.LIB_PATH:""] / Allow an override for the l
    system "l ", 1 _ string first files;
    :first files
    ];
-   files: 1 _ files
-   ];
-  '"File not found at library load paths:\n\t", "\n\t" sv 1 _' string allfiles;
+  files: 1 _ files
+  ];
+ '"File not found at library load paths:\n\t", "\n\t" sv 1 _' string allfiles;
  }
 
 .tst.tmp.prep_paths:{
