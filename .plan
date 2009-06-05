@@ -13,7 +13,7 @@ desc["Blah blah"]{
 
  should["blah blah"] {...}
  holds["blah blah";`blah`blah`times!("blah";{blah > x};100)]{[fuzzDict];...} / Returns a value to be checked
- perf["blah blah"; ((), `max)!(),0Nt]{...}
+ perf["blah blah"; ((), `max)!(),0Nt;1 10 100!(dataset1;dataset2;dataset3)]{...}
 
  after {...}
 
@@ -28,7 +28,7 @@ desc["Blah blah"]{
 Possible data structure:
  expec: `name`before`after`code!("...";{...};{...};{...})
  fuzz: `name`before`after`code`runs`var!("...";{...};{...};{...};0N;({...};...);[`type | `type$() | `type$n#0 | val | `type$n#val | {...} | `name1`name2!var])
- perf: `name`before`after`code`max`timeout`times!("...";{...};{...};{...};0Nt;0Nt;0N)
+ perf: `name`before`after`code`max`timeout`times`datasets!("...";{...};{...};{...};0Nt;0Nt;0N;1 10 100!(dataset1;dataset2;dataset3))
 
  After running, the structures will also hold results (maybe they should just go in their own results dict?):
 
