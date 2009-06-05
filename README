@@ -2,7 +2,7 @@
 
 qspec is a testing framework for the Q programming language
 lightly inspired by Behaviour Driven Development and the
-rspec testing framework (http://rspec.info/).  It provides
+rspec testing framework ( http://rspec.info ).  It provides
 functions for the creation of unit tests, a command line
 tool for running and displaying the results of unit tests,
 and some callbacks for defining new tools based on unit
@@ -13,7 +13,7 @@ should be cross platform.
 == INSTALLATION ==
 
 qspec as it is distributed requires the installation of the
-qutil library (http://github.org/DannoHung/qutil). Follow
+qutil library ( http://github.org/DannoHung/qutil ). Follow
 the qutil instructions and then unzip qspec to an acceptable
 location within the Q source code search path that you will
 have specified.
