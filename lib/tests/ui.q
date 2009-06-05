@@ -53,9 +53,9 @@ uiCode:(before;after;should;holds;perf;alt)
  specObj[`title]:title;
  / set up the UI for the expectation call
  / mock isn't exactly the right name for this usage.  Think of it more like "substitute"
- ((` sv `.,) each uiNames) .tst.mock' uiCode;
- ((` sv `.q,) each key asserts) .tst.mock' value asserts; / See Note on Global References
+ ((` sv `.q,) each `mock,uiNames,key asserts) .tst.mock' .tst.mock,uiCode,value asserts; / See Note on Global References
  (value string expectations)[];                           / See Note on Global References
+ specObj[`context]: system "d";
  specObj[`expectations]:1 _ expecList;
  / Reset environment
  `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
