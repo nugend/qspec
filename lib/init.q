@@ -5,6 +5,7 @@
 .utl.require .utl.PKGLOADING,"/tests/spec.q"
 .utl.require .utl.PKGLOADING,"/tests/expec.q"
 .utl.require .utl.PKGLOADING,"/tests/fuzz.q"
+.utl.require .utl.PKGLOADING,"/fixture.q"
 .utl.require .utl.PKGLOADING,"/loader.q"
 
 .tst.PKGNAME: .utl.PKGLOADING
