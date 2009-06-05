@@ -2,7 +2,7 @@
 / Ideas:
 / .tst.VAR containing possible fixture paths
 / Environment variable with fixture paths?
-.tst.fixture:{[fixtureName];
+.tst.fixtureAs:{[fixtureName;altName];
  dirPath: (` vs .tst.tstPath) 0;
  fixtures: $[fixtureName in key dirPath;
  ` sv dirPath,fixtureName;
@@ -11,12 +11,25 @@
  '"Error"];
  }
 
+.tst.fixture:.tst.fixtureAs[;`]
+
+.tst.loadFixtureTxt:{[f;altName];
+ fname: ((` vs (` vs f) 1) 0) ^ altName;
+ .tst.mock[fname;(raze l[0;1] vs l[0];enlist l[0;1]) 0: 1 _ l: read0 f];
+ fname
+ }
+
+.tst.loadFixtureFile:{[f;altName];
+ .tst.mock[fname:((` vs f) 1) ^ altName;get f];
+ fname
+ }
+
 .tst.currentDirFixture:`
 .tst.savedDir:.tst.defaultSavedDir:`directory`vars!("";(`,())!(),(::))
 saveDir:{
  if[not () ~ dirVars: findDirVars[];
   .tst.savedDir:`directory`vars!(system "cd";(!).(::;get each)@\:` sv' `.,'dirVars);
-  removeVars dirVars];
+  removeDirVars dirVars];
  }
 
 removeDirVars:{![`.;();0b;] $[(::) ~ x;findDirVars[];x]}
