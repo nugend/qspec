@@ -11,6 +11,8 @@
 .u.addOpt["exclude";(),"*";`.tst.app.excludeSpecs]
 .u.addOpt["only";(),"*";`.tst.app.runSpecs]
 .u.addOpt["pass";1b;`.tst.app.passOnly]
+.u.addOpt["noquit";0b;`.tst.app.exit]
+.u.addOpt["perf-display-limt,pdf";"I";`.tst.output.fuzzLimit]
 
 if[app.describeOnly;.tst.output.mode:`describe];
 
@@ -32,4 +34,4 @@ if[not app.passOnly; -1 raze .tst.output.spec each app.result];
 
 app.returnCode: all `pass = app.result[;`pass]
 
-/exit `int$app.returnCode
+if[app.exit; exit `int$app.returnCode];
