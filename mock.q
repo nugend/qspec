@@ -23,8 +23,8 @@ mock:{[name;newVal];
 restore:{
  / Restore all fully qualified symbols
  (set') . (key;value) @\: 1 _ store;
- `store set initStore;
+ `.tst.store set initStore;
  / Drop each fully qualified symbol from its respective namespace
- (.[;();_;]') . flip ((` sv -1 _;last) @\: ` vs) each removeList;
- `removeList set ();
+ if[count removeList;(.[;();_;]') . flip ((` sv -1 _;last) @\: ` vs) each removeList];
+ `.tst.removeList set ();
  }
