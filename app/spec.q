@@ -14,7 +14,7 @@
 .utl.addOpt["noquit";0b;`.tst.app.exit]
 .utl.addOpt["perf-display-limt,pdf";"I";`.tst.output.fuzzLimit]
 
-if[not count .utl.args;1 "Must supply files to load!";exit 1]
+if[not count .utl.args;-1 "Must supply files to load!";exit 1]
 
 app.specs:()
 
