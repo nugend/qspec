@@ -33,8 +33,7 @@ if["" ~ @[get;`.tst.LIB_PATH;""];.tst.LIB_PATH:""] / Allow an override for the l
                              `expec.q;
                              `fuzz.q)))
 
-/.tst.tmp.paths: (enlist .tst.LIB_PATH),(getenv each `PATH`LD_LIBRARY_PATH)
-.tst.tmp.paths: .tst.LIB_PATH
+.tst.tmp.paths: (enlist .tst.LIB_PATH),(getenv each `PATH`LD_LIBRARY_PATH)
 .tst.tmp.files: raze .tst.tmp.make_file_list each .tst.tmp.load_files
 
 .tst.tmp.load[.tst.tmp.paths;.tst.tmp.files];
