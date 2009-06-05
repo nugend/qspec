@@ -28,16 +28,24 @@ output[`code]:{[e];
  o
  }
 
+output[`anyFailures]:{[t];(`failures in key t) and count t[`failures]}
+
+output[`assertsRun]:{[t];
+ (string t[`assertsRun]), $[1 = t[`assertsRun];" assertion was";" assertions were"]," run.\n"
+ }
+
 output[`error]:{[e];
- $[count e[`errorText];"Error: ",(string e[`result]), " '", e[`errorText],"\n";""]
+ o:$[count e[`errorText];"Error: ",(string e[`result]), " '", e[`errorText],"\n";""];
+ if[not output[`anyFailures] e;o,:output[`assertsRun] e];
+ o
  }
 
 output[`test]:{[t];
  o:"";
  o,:output.error[t];
- if[(`failures in key t) and count t[`failures];
+ if[output[`anyFailures] t;
   o,:raze "Failure: ",/:t[`failures],\:"\n";
-  o,:(string t[`assertsRun]), $[1 = t[`assertsRun];" assertion was";" assertions were"]," run.\n";
+  o,:output[`assertsRun] t;
   ];
  o,:output.code[t];
  o,"\n"
@@ -47,7 +55,7 @@ output[`fuzzLimit]:10;
 output[`fuzz]:{[f];
  o:"";
  o,:output.error[f];
- if[(`failures in key f) and count f[`failures];
+ if[output[`anyFailures] f;
   o,:raze "Failure: ",/:f[`failures],\: "\n";
   o,:"Maximum accepted failure rate: ", (string f[`maxFailRate]), "\n";
   o,:"Failure rate was ", (string f[`failRate]), " for ", (string f[`runs]), " runs\n";
