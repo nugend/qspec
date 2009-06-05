@@ -34,8 +34,11 @@ if[0 <> count app.excludeSpecs;.tst.app.specs: app.specs where not (or) over app
  
 app.results: $[not app.describeOnly;.tst.runSpec each app.specs;app.specs]
 
-if[not app.passOnly; 1 {$["\n" = last x; -1 _ x;x]} raze .tst.output.spec each app.results];
+app.passed:all `pass = app.results[;`result];
+if[not app.passOnly; 
+ if[not app.passed;
+  -1 raze .tst.output.spec each app.results;
+  ];
+ ];
 
-app.returnCode: not all `pass = app.results[;`result]
-
-if[app.exit; exit `int$app.returnCode];
+if[app.exit; exit `int$not app.passed];
