@@ -1,5 +1,5 @@
 \d .tst
-failures:();
+.tst.defaultAssertState:.tst.assertState:``failures`assertsRun!(::;();0);
 
 internals:()!()
 internals[`specObj]:()!()
