@@ -1,6 +1,6 @@
 \d .tst
-.utl.require "qutil/opts.q"
-.utl.require "qspec"
+.utl.require "qutil/lib/opts.q"
+.utl.require "qspec/lib"
 .tst.loadOutputModule["text"]
 .tst.app.excludeSpecs:();
 .tst.app.runSpecs:();
