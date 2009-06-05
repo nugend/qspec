@@ -13,5 +13,6 @@ internals[`perfObj]: internals[`defaultExpecObj], ((),`type)!(),`perf
 if[not `callbacks in key .tst; / Avoid callback overwriting issue when dogfooding
  callbacks:((),`)!(),(::);
  callbacks[`loadDesc]:{};
+ callbacks[`expecRan]:{};
  ];
 

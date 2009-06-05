@@ -6,6 +6,7 @@
   `.tst.expecList mock .tst.expecList;
   `.tst.currentBefore mock .tst.currentBefore;
   `.tst.currentAfter mock .tst.currentAfter;
+  `.tst.callbacks.expecRan mock {}; / Mock this out so expectations run TO test running expectations don't count towards test expectations ran
   };
  after{
   myRestore[];
@@ -65,5 +66,14 @@
   e: last .tst.expecList;
   .tst.runExpec e;
   mustnotthrow[();{[x;y] .tst.runExpec[x]}[e]];
+  };
+ should["call the expecRan callback with the results of running the expectation"]{
+  `..callbackCalled mock 0b;                                / The context will be in .tst when the callback is executed
+  `.tst.callbacks.expecRan mock {`..callbackCalled set 1b};
+  should["run this"]{};
+  e: last .tst.expecList;
+  .tst.runExpec e;
+  .tst.contextHelper[];
+   must[callbackCalled;"Expected the loadDesc callback to have been called"];
   };
  };
