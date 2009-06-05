@@ -1,8 +1,7 @@
 \d .tst
 uiSet:{.[`.tst;(),x;:;y]}
 
-/TODO: Something's definitely not right with this for accumulating desc-y dicts
-oldAssertList:assertList:enlist ()!() / Asserts are built up into this variable
+assertList:enlist ()!() / Asserts are built up into this variable
 currentBefore:{}
 currentAfter:{}
 
@@ -14,12 +13,11 @@ after:{[code];
  uiSet[`currentAfter;code]
  }
 
-alt:{[code];
+alt:{[code];                / Alt blocks allow different before/after behavior to be defined
  oldBefore: currentBefore;
  oldAfter: currentAfter;
  code[];
- uiSet[`currentBefore;oldBefore];
- uiSet[`currentAfter;oldAfter]
+ `currentBefore`currentAfter uiSet' (oldBefore;oldAfter);
  }
 
 should:{[des;code];
@@ -38,14 +36,18 @@ uiNames:`before`after`should`holds`perf`alt`mock
 uiCode:(before;after;should;holds;perf;alt;.tst.mock)
 
 .tst.desc:{[title;asserts];
+ oldBefore: currentBefore;
+ oldAfter: currentAfter;
+ oldAssertList: assertList;
  specObj: .tst.internals.specObj;
  specObj[`title]:title;
  / set up the UI for the assertion call
+ / mock isn't exactly the right name for this usage.  Think of it more like "substitute"
  ((` sv `.,) each uiNames) .tst.mock' uiCode;
  asserts[];
  specObj[`assertions]:1 _ assertList;
  / Reset environment
- uiSet[`assertList;oldAssertList];
+ `assertList`currentBefore`currentAfter uiSet' (oldAssertList;oldBefore;oldAfter);
  .tst.restore[];
  specObj
  }
