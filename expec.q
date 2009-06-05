@@ -1,10 +1,10 @@
 \d .tst
 runExpec:{[expec];
  expec[`result]:();
- expec: @[{x[];()};expec`before;expecError[expec;"before"]];
+ expec,: @[{x[];()};expec`before;expecError[expec;"before"]];
  / Only run the expectation code when the setup works
- if[not count expec[`result];expec: @[callExpec;expec;expecError[expec;string expec[`type]]]]; 
- expec: @[{x[];()};expec`after;expecError[expec;"after"]];
+ if[not count expec[`result];expec,: @[callExpec;expec;expecError[expec;string expec[`type]]]]; 
+ expec,: @[{x[];()};expec`after;expecError[expec;"after"]];
  .tst.restore[];
  / Clear any failure strings made by assertions
  .tst.failures:();
@@ -20,10 +20,11 @@ expecError:{[expec;errorType;errorText];
 callExpec:{[expec];
  $[expec[`type] in  key runners;
  runners[expec`type] expec;
- `badExpecType]
+ 'badExpecType]
  }
 
 runners:()!()
+runners[`perf]:{[expec];}
 runners[`test]:{[expec];
  expec[`code][];
  / We use just a dab of state to communicate with the assertions
@@ -31,4 +32,3 @@ runners[`test]:{[expec];
  expec[`result]: $[count expec`failures;`testFail;`pass];
  expec
  }
-runners[`perf]:{[expec];}
