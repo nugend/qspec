@@ -1,7 +1,7 @@
 \d .tst
 uiSet:{.[`.tst;(),x;:;y]}
 
-assertList:enlist ()!() / Asserts are built up into this variable
+expecList:enlist ()!() / Asserts are built up into this variable
 currentBefore:{}
 currentAfter:{}
 
@@ -21,15 +21,15 @@ alt:{[code];                / Alt blocks allow different before/after behavior t
  }
 
 should:{[des;code];
- assertList,: enlist .tst.internals.testObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter))
+ expecList,: enlist .tst.internals.testObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter))
  }
 
 holds:{[des;props;code];
- assertList,: enlist .tst.internals.fuzzObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
+ expecList,: enlist .tst.internals.fuzzObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
  }
 
 perf:{[des;props;code];
- assertList,: enlist .tst.internals.perfObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
+ expecList,: enlist .tst.internals.perfObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
  }
 
 uiNames:`before`after`should`holds`perf`alt
@@ -45,20 +45,20 @@ uiCode:(before;after;should;holds;perf;alt)
 / .q.musteq: {x+y}
 / (value {2 musteq 2}) 3
  
-.tst.desc:{[title;asserts];
+.tst.desc:{[title;expectations];
  oldBefore: currentBefore;
  oldAfter: currentAfter;
- oldAssertList: assertList;
+ oldExpecList: expecList;
  specObj: .tst.internals.specObj;
  specObj[`title]:title;
- / set up the UI for the assertion call
+ / set up the UI for the expectation call
  / mock isn't exactly the right name for this usage.  Think of it more like "substitute"
  ((` sv `.,) each uiNames) .tst.mock' uiCode;
  ((` sv `.q,) each key asserts) .tst.mock' value asserts; / See Note on Global References
- (value string assertions)[];                             / See Note on Global References
- specObj[`assertions]:1 _ assertList;
+ (value string expectations)[];                           / See Note on Global References
+ specObj[`expectations]:1 _ expecList;
  / Reset environment
- `assertList`currentBefore`currentAfter uiSet' (oldAssertList;oldBefore;oldAfter);
+ `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
  .tst.restore[];
  specObj
  }
