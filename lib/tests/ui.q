@@ -60,6 +60,7 @@ uiCode:(before;after;should;holds;perf;alt)
  / Reset environment
  `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
  .tst.restore[];
+ .tst.callbacks.loadDesc specObj;
  specObj
  }
 
