@@ -27,7 +27,6 @@ interpreting options to the command line tool. If you intend
 to keep up to date with release, I would recommend
 developing a script to perform substitutions for you.
 
-
 == LICENSE ==
 
 This code is licensed under an MIT license.  See LICENSE for
@@ -40,7 +39,6 @@ changes to the code that you feel would be useful to others,
 please contribute them back.  If you have suggestions,
 please make them.  If you have found a bug, please report
 it.
-
 
 == CONTACT ==
 
