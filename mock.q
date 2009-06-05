@@ -9,7 +9,7 @@ mock:{[name;newVal];
  name:$[1 = c: count ` vs name;
   / Create fully qualified name if given a local one
   ` sv (system "d"),name;
-  2 = c;
+  (2 = c) and ` ~ first ` vs name;
   '"Can't mock top-level namespaces!";
   name];
  / Early abort if name will be removed later
