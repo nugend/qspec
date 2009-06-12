@@ -13,3 +13,5 @@ suffixMatch:{[suffix;path];
  f: f where f like "*",suffix;
  raze f, .z.s[suffix] each d
  }
+
+testFilePath:{` sv (` vs .tst.tstPath)[0],x}

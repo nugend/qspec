@@ -35,7 +35,7 @@ if[not[app.describeOnly] and not app.passOnly; / Only want to print this when ru
   if[r in `fail`fuzzFail; app.expectationsFailed+:1];
   if[r like "*Error"; app.expectationsErrored+:1];
   1 $[r ~ `pass;".";
-   r in `fail`fuzzFail;"F";
+   r in `testFail`fuzzFail;"F";
    r ~ `afterError;"B";
    r ~ `afterError;"A";
    "E"];
