@@ -1,3 +1,6 @@
+* Fixed test failure display bug
+* Added .tst.testFilePath function for finding files in the same path as the test file
+
 VERSION 0.1.2 -- 2009.05.31
 * Fixed bug where splayed table would not load as fixture
 * Fixed assertion output messages for mustlt and mustgt
