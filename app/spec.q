@@ -32,7 +32,7 @@ if[not[app.describeOnly] and not app.passOnly; / Only want to print this when ru
   app.expectationsRan+:1;
   r:e[`result];
   if[r ~ `pass; app.expectationsPassed+:1];
-  if[r in `fail`fuzzFail; app.expectationsFailed+:1];
+  if[r in `testFail`fuzzFail; app.expectationsFailed+:1];
   if[r like "*Error"; app.expectationsErrored+:1];
   1 $[r ~ `pass;".";
    r in `testFail`fuzzFail;"F";
