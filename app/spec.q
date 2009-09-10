@@ -1,6 +1,6 @@
 \d .tst
-.utl.require "qutil/lib/opts.q"
-.utl.require "qspec/lib"
+.utl.require "qutil/opts.q"
+.utl.require "qspec"
 .tst.loadOutputModule["text"]
 .tst.app.excludeSpecs:();
 .tst.app.runSpecs:();
@@ -13,8 +13,8 @@
 .utl.addOpt["pass";1b;`.tst.app.passOnly]
 .utl.addOpt["noquit";0b;`.tst.app.exit]
 .utl.addOpt["fuzz-display-limt,fdl";"I";`.tst.output.fuzzLimit]
-
-if[not count .utl.args;-1 "Must supply files to load!";exit 1]
+.utl.addArg["*";();(),1;`.tst.app.args];
+.utl.parseArgs[];
 
 app.specs:()
 
@@ -43,7 +43,7 @@ if[not[app.describeOnly] and not app.passOnly; / Only want to print this when ru
  ];
 
 \d .
-(.tst.loadTests hsym `$) each .utl.args;
+(.tst.loadTests hsym `$) each .tst.app.args;
 \d .tst
 
 if[not app.runPerformance;.tst.app.specs[;`expectations]: {x .[;();_;]/ where x[;`type] = `perf} each app.specs[;`expectations]];
