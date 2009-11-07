@@ -15,6 +15,7 @@
 .utl.addOpt["fuzz-display-limt,fdl";"I";`.tst.output.fuzzLimit]
 .utl.addArg["*";();(),1;`.tst.app.args];
 .utl.parseArgs[];
+.utl.DEBUG:1b
 
 app.specs:()
 
