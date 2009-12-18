@@ -1,3 +1,4 @@
+* Fixed bug with fuzz test output where an error occurring part of the way into a fuzz run would cause the display of the tests results to fail
 * Error handling assertions (mustthrow and mustnotthrow) can now execute lists where the first argument is a function or function name and the remaining elements are arguments
 
 VERSION 1.0.0 -- 2009.09.09

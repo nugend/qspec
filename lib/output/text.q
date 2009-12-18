@@ -55,7 +55,9 @@ output[`fuzzLimit]:10;
 output[`fuzz]:{[f];
  o:"";
  o,:output.error[f];
- if[output[`anyFailures] f;
+ / If the fuzz assertions errors out after tests have been run, but not all failure processing has completed, the output will not pring correctly
+ / Consider trying to figure out how to print the fuzz that the test failed on (store last fuzz?)
+ if[(o~"") and output[`anyFailures] f;
   o,:raze "Failure: ",/:f[`failures],\: "\n";
   o,:"Maximum accepted failure rate: ", (string f[`maxFailRate]), "\n";
   o,:"Failure rate was ", (string f[`failRate]), " for ", (string f[`runs]), " runs\n";
