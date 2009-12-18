@@ -1,3 +1,5 @@
+* Error handling assertions (mustthrow and mustnotthrow) can now execute lists where the first argument is a function or function name and the remaining elements are arguments
+
 VERSION 1.0.0 -- 2009.09.09
 * NONCOMPATIBLE - Updated QSpec to use v2 series of Qutil
 * NONCOMPATIBLE - spec.q now expects that the libraries for the qspec and qutil packages will be linked or installed such that the qspec and qutil folders point to the lib directories of the release packages.  (This allows users to create site specific paths for libraries and applications).

@@ -25,6 +25,22 @@
    .tst.assertState.failures:oldFailures;
    };
   };
+ should["be capable of executing function objects"]{
+  errFunc:{'"foo"};
+  cleanFunc:{"foo"};
+  mustthrow[();errFunc];
+  mustnotthrow[();cleanFunc];
+  .tst.assertState.failures:oldFailures;
+  };
+ should["be capable of executing lists"]{
+  `errFunc mock {'x};
+  `cleanFunc mock {x};
+  mustthrow[();(errFunc;"foo")];
+  mustnotthrow[();(cleanFunc;"foo")];
+  mustthrow[();(`errFunc;"foo")];
+  mustnotthrow[();(`cleanFunc;"foo")];
+  .tst.assertState.failures:oldFailures;
+  };
  should["report only thrown exceptions that were not supposed to have been thrown"]{
   mustnotthrow["foo";{'"foo"}];
   mustnotthrow["foo";{'"bar"}];

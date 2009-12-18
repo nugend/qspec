@@ -18,7 +18,7 @@ asserts[`mustnin]:{[l;r]; asserts.must[not l in r;"Expected ", (-3!l), " to not 
 asserts[`mustwithin]:{[l;r]; asserts.must[l within r;"Expected ", (-3!l), " to be within ", (-3!r)]}
 asserts[`mustdelta]:{[tol;l;r]; asserts.must[l within (r - abs tol;r + abs tol);"Expected ", (-3!l), " to be within +/-", (-3!tol), " of ", (-3!r)]}
 asserts[`mustthrow]:{[e;c]; 
- r:@[{x[];""};c;(::)];
+ r:@[{value $[1 = count x;((),x),(::);x];""};c;(::)];
  m:"Expected '", (-3!c), "' to throw ",$[not count e;
  "an error.";
  10h = type e;
@@ -32,7 +32,7 @@ asserts[`mustthrow]:{[e;c];
  }
 
 asserts[`mustnotthrow]:{[e;c];
- r:@[{x[];""};c;(::)];
+ r:@[{value $[1 = count x;((),x),(::);x];""};c;(::)];
  m:"Expected '", (-3!c), "' to not throw ";
  if[10h = type e;e:enlist e];
  p:1b;
