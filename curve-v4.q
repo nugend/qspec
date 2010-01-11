@@ -4,8 +4,7 @@ curve:{[syms;start;end];
   rt:(flip `sym`start`end!flip raze syms cross' datespans'[count[syms]#start;end]);
   dates:exec distinct `date$start from rt;
   syms:exec distinct sym by `date$start from rt;
-  / 2.6 bug doesn't allow 'atom within enlist (atom;atom)'
-  times:{$[1 = count x;first x;x]} each boundaries each exec `time$flip (start;end) by sym, date:`date$start from rt;
+  times:{$[1 = count x;first x;flip x]} each boundaries each exec `time$flip (start;end) by sym, date:`date$start from rt;
   v:select vol: sum size by sym, date, time.minute from trade where date in dates, sym in syms[first date], any each time within' times[([]sym;date)];
   ot,'individualCurve[v]'[ot`sym;ot`start;ot`end]
   }
