@@ -5,7 +5,7 @@ runSpec:{
  oldContext: .tst.context;
  .tst.context: x[`context];
  .tst.tstPath: x[`tstPath];
- x:@[x;`expectations;runExpec each];
+ x:@[x;`expectations;runExpec[x] each];
  .tst.restoreDir[];
  .tst.context: oldContext;
  .tst.tstPath: `;

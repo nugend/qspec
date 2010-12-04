@@ -1,10 +1,10 @@
 .tst.desc["Running a specification should"]{
  before{
-  `.tst.runExpec mock {x};
+  `.tst.runExpec mock {[x;y]y};
   `defaultSpecification mock `context`tstPath`expectations!(`.foo;`:/foo/bar;enlist (`result,())!(),`pass)
   };
  should["set the correct context and the correct filepath for its expectations"]{
-  `.tst.runExpec mock {
+  `.tst.runExpec mock {[x;y];
    .tst.context mustmatch `.foo;
    .tst.tstPath mustmatch `:/foo/bar;
    x

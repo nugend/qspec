@@ -5,7 +5,7 @@
   `myRestore mock .tst.restore; / Mocking restore so the UI doesn't get clobbered
   `.tst.restore mock {};
   `.tst.expecList mock .tst.expecList;
-  `.tst.callbacks.expecRan mock {}; / Mock this out so expectations run TO test running expectations don't count towards test expectations ran
+  `.tst.callbacks.expecRan mock {[x;y]}; / Mock this out so expectations run TO test running expectations don't count towards test expectations ran
   };
  after{
   myRestore[];
@@ -14,13 +14,13 @@
   `ran mock 0;
   holds["run this";((),`runs)!(),20]{ran+:1};
   e: last .tst.expecList;
-  .tst.runExpec e;
+  .tst.runExpec[();e];
   .tst.contextHelper[];
   ran musteq 20;
   `ran mock 0;
   holds["run this";((),`runs)!(),40]{ran+:1};
   e: last .tst.expecList;
-  .tst.runExpec e;
+  .tst.runExpec[();e];
   .tst.contextHelper[];
   ran musteq 40;
   };
@@ -32,7 +32,7 @@
    if[ran > 9; 1 musteq 2]; / Force failure for a certain percentage
    };
   e: last .tst.expecList;
-  e:.tst.runExpec e;
+  e:.tst.runExpec[();e];
   .tst.contextHelper[];
   testedFailures: .tst.assertState.failures;
   .tst.assertState.failures:oldFailures;
@@ -43,7 +43,7 @@
   `ran mock 0;
   holds["run this";((),`runs)!(),20]{ran+:1};
   e: last .tst.expecList;
-  .tst.runExpec e;
+  .tst.runExpec[();e];
   .tst.contextHelper[];
   ran musteq 20;
   };
@@ -59,7 +59,7 @@
    cVar:: x`c;
    };
   e: last .tst.expecList;
-  .tst.runExpec e;
+  .tst.runExpec[();e];
   .tst.contextHelper[];
   `a`b`c mustin xKey;
   type[aVar] musteq -11h;

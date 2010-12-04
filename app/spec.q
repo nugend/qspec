@@ -13,6 +13,7 @@
 .utl.addOpt["pass";1b;`.tst.app.passOnly]
 .utl.addOpt["noquit";0b;`.tst.app.exit]
 .utl.addOpt["fuzz-display-limt,fdl";"I";`.tst.output.fuzzLimit]
+.utl.addOpt["ff,fail-fast";1b;`.tst.app.failFast]
 .utl.addArg["*";();(),1;`.tst.app.args];
 .utl.parseArgs[];
 .utl.DEBUG:1b
@@ -29,7 +30,7 @@ app.expectationsErrored:0
  }
 
 if[not[app.describeOnly] and not app.passOnly; / Only want to print this when running to see results
- .tst.callbacks.expecRan:{[e];
+ .tst.callbacks.expecRan:{[s;e];
   app.expectationsRan+:1;
   r:e[`result];
   if[r ~ `pass; app.expectationsPassed+:1];
@@ -40,6 +41,11 @@ if[not[app.describeOnly] and not app.passOnly; / Only want to print this when ru
    r ~ `afterError;"B";
    r ~ `afterError;"A";
    "E"];
+  if[app.failFast and not r ~ `pass;
+    s[`expectations]:enlist e;
+    1 "\n",.tst.output.spec s;
+    exit 1
+    ];
   }
  ];
 
