@@ -1,3 +1,4 @@
+VERSION 1.1 -- 2011.04.26
 * Added new command line parameter --fail-fast that halts execution of further tests as soon as an error or failure is detected
 * Added new command line parameter --fail-hard that halts execution of further tests as soon as an error or failure occurs and drops into a Q session with the context of the failure
 
