@@ -1,3 +1,6 @@
+* Added new command line parameter --fail-fast that halts execution of further tests as soon as an error or failure is detected
+* Added new command line parameter --fail-hard that halts execution of further tests as soon as an error or failure occurs and drops into a Q session with the context of the failure
+
 VERSION 1.0.1 -- 2009.12.24
 * Fixed bug with fuzz test output where an error occurring part of the way into a fuzz run would cause the display of the tests results to fail
 * Error handling assertions (mustthrow and mustnotthrow) can now execute lists where the first argument is a function or function name and the remaining elements are arguments

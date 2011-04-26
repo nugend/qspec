@@ -1,7 +1,7 @@
 .tst.desc["Running a specification should"]{
  before{
+  `defaultSpecification mock `context`tstPath`expectations!(`.foo;`:/foo/bar;enlist (`result,())!(),`pass);
   `.tst.runExpec mock {[x;y]y};
-  `defaultSpecification mock `context`tstPath`expectations!(`.foo;`:/foo/bar;enlist (`result,())!(),`pass)
   };
  should["set the correct context and the correct filepath for its expectations"]{
   `.tst.runExpec mock {[x;y];
@@ -35,5 +35,30 @@
  should["work with an empty expectation list"]{
   mustnotthrow[();{.tst.runSpec @[defaultSpecification;`expectations;:;([];result:`symbol$())]}];
   mustnotthrow[();{.tst.runSpec @[defaultSpecification;`expectations;:;()]}];
+  };
+ };
+
+.tst.desc["Halting execution of specifications"]{
+ before{
+  `defaultSpecification mock `context`tstPath`expectations!(`.foo;`:/foo/bar;enlist (`result,())!(),`pass);
+  `.tst.runExpec mock {[x;y]y};
+  `myOldContext mock .tst.context;
+  `myOldPath mock .tst.tstPath;
+  `.tst.halt mock 1b;
+  };
+ after{
+  .tst.halt:0b;
+  .tst.restoreDir[];
+  .tst.context:myOldContext;
+  .tst.tstPath:myOldPath;
+  };
+ should["not run further expectations"]{
+  `.tst.runExpec mock {[x;y]'"error"};
+  mustnotthrow[();{.tst.runSpec defaultSpecification}];
+  };
+ should["not restore the context and filepath to what they previously were"]{
+  .tst.runSpec defaultSpecification;
+  myOldContext mustnmatch .tst.context;
+  myOldPath mustnmatch .tst.tstPath;
   };
  };
