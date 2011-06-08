@@ -15,8 +15,17 @@ should be cross platform.
 qspec as it is distributed requires the installation of the
 qutil library ( http://github.org/DannoHung/qutil ). Follow
 the qutil instructions and then unzip qspec to an acceptable
-location within the Q source code search path that you will
-have specified.
+location and then copy or link the lib directory inside
+qspec within the Q source code search path that you will have 
+specified.
+
+For example, if you are using the environment variable is
+QPATH and is set to /home/user/qpath and qspec is installed
+to /home/user/packages/qspec you might want to have an
+installation like this:
+
+/home/user/packages/qspec/lib 
+/home/user/qpath/qspec -> /home/user/qpackages/qspec/lib
 
 If this is unacceptable, search within the project for all
 instances of the keyword ".utl" and replace the
@@ -26,6 +35,11 @@ finding and loading files based on provided paths and
 interpreting options to the command line tool. If you intend
 to keep up to date with release, I would recommend
 developing a script to perform substitutions for you.
+
+== TUTORIAL ==
+
+Please see the project wiki on github for instructions on usage:
+http://github.com/DannoHung/qspec/wiki
 
 == LICENSE ==
 
