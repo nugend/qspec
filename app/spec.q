@@ -7,6 +7,8 @@
 .tst.output.mode: `run
 
 .utl.addOpt["desc,describe";1b;(`.tst.app.describeOnly;{if[x;.tst.output.mode:`describe;];x})]
+.utl.addOpt["xunit";1b;(`.tst.app.xmlOutput;{if[x;.tst.loadOutputModule["xunit"]];x})];
+.utl.addOpt["junit";1b;(`.tst.app.xmlOutput;{if[x;.tst.loadOutputModule["junit"]];x})];
 .utl.addOpt["perf,performance";1b;`.tst.app.runPerformance]
 .utl.addOpt["exclude";(),"*";`.tst.app.excludeSpecs]
 .utl.addOpt["only";(),"*";`.tst.app.runSpecs]
@@ -37,11 +39,13 @@ if[not[app.describeOnly] and not app.passOnly; / Only want to print this when ru
   if[r ~ `pass; app.expectationsPassed+:1];
   if[r in `testFail`fuzzFail; app.expectationsFailed+:1];
   if[r like "*Error"; app.expectationsErrored+:1];
-  1 $[r ~ `pass;".";
-   r in `testFail`fuzzFail;"F";
-   r ~ `afterError;"B";
-   r ~ `afterError;"A";
-   "E"];
+  if[.tst.output.interactive;
+    1 $[r ~ `pass;".";
+     r in `testFail`fuzzFail;"F";
+     r ~ `afterError;"B";
+     r ~ `afterError;"A";
+     "E"];
+     ];
   if[(app.failFast or app.failHard) and not r ~ `pass;
     s[`expectations]:enlist e;
     1 "\n",.tst.output.spec s;
@@ -65,13 +69,15 @@ app.results: $[not app.describeOnly;.tst.runSpec each app.specs;app.specs]
 if[not .tst.halt;
  app.passed:all `pass = app.results[;`result];
  if[not app.passOnly;
-  if[not app.describeOnly;-1 "\n"];
-  if[not app.passed;
-   -1 raze .tst.output.spec each app.results;
+  if[.tst.output.interactive and not app.describeOnly;-1 "\n"];
+  if[.tst.output.always or not app.passed;
+   -1 {-1 _ x} .tst.output.top app.results;
    ];
   if[not app.describeOnly;
-   -1 "For ", string[count app.specs], " specifications, ", string[app.expectationsRan]," expectations were run.";
-   -1 string[app.expectationsPassed]," passed, ",string[app.expectationsFailed]," failed.  ",string[app.expectationsErrored]," errors.";
+   if[.tst.output.interactive;
+    -1 "For ", string[count app.specs], " specifications, ", string[app.expectationsRan]," expectations were run.";
+    -1 string[app.expectationsPassed]," passed, ",string[app.expectationsFailed]," failed.  ",string[app.expectationsErrored]," errors.";
+    ];
    ];
   ];
 

@@ -1,5 +1,6 @@
 \d .tst
 runExpec:{[spec;expec];
+ time:.z.n;
  startExpec:expec;
  expec:setupExpec[spec;expec];
  beforeBad:`before;
@@ -13,6 +14,7 @@ runExpec:{[spec;expec];
  if[.tst.halt;
   stageBadExpec[spec;startExpec;beforeBad];
   ];
+ expec[`time]:.z.n - time;
  expec
  }
 

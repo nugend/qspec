@@ -11,6 +11,6 @@
 .tst.PKGNAME: .utl.PKGLOADING
 
 .tst.loadOutputModule:{[module];
- if[not module in enlist "text"; '"Unknown OutputModule ",module];
+ if[not module in ("text";"xunit";"junit"); '"Unknown OutputModule ",module];
  .utl.require .tst.PKGNAME,"/output/",module,".q"
  }

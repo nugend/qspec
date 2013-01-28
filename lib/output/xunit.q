@@ -1,27 +1,28 @@
+.utl.require .tst.PKGNAME,"/output/xml.q"
 \d .tst
 
 expecTypes:`test`fuzz`perf!("should";"it holds that";"performs")
 
 output:()!()
 output[`top]:{[specs]
-  raze output.spec each specs
+  xml.node["test-suite";()!()] raze output.spec each specs
   }
 output[`spec]:{[spec];
- if[spec[`result] ~ `pass; :""]; / Never print passed specs
- o: spec[`title],"::\n";
- o,: raze output[`expectation] each spec[`expectations] $[.tst.output.mode ~ `describe;
-  (::);
-  where spec[`expectations;;`result] <> `pass];
- o
- }
+  e:spec`expectations;
+  attrs:`name`reports`skips`tests`errors`failures!(spec`title;1;0;sum e`assertsRun;sum e[`result] like "*Error";sum e[`result]=`testFail);
+  attrs,:(`$("test-cases";"errors-detail";"failures-detail"))!(count e;sum e[`result] like "*Error";sum count each e`failures);
+  xml.node["test-suite";attrs;-1 _ ` sv output[`expectation] each e]
+  }
  
 output[`expectation]:{[e];
- o: "- ",expecTypes[e`type]," ",e[`desc],$[.tst.output.mode ~ `describe;"";":"],"\n";
- if[not .tst.output.mode ~ `describe;
-  o,:output[e`type][e];
- ];
- o
- }
+  label: expecTypes[e`type]," ",name:e[`desc];
+  sysout:output[e`type][e];
+  atr:`name`label`errors`failures`skip`tests!(name;label;e[`result] like "*Error";count e`failures;0;e`assertsRun);
+  xml.node["test-case";atr] $[(e[`result] like "*Error") or count e`failures;
+    xml.node["sysout";()!();sysout];
+    ""
+    ]
+  }
 
 output[`code]:{[e];
  o:"";
@@ -74,5 +75,5 @@ output[`fuzz]:{[f];
 output[`perf]:{[p];
  }
 
-output[`always]:0b
-output[`interactive]:1b
+output[`always]:1b
+output[`interactive]:0b
