@@ -71,7 +71,7 @@
 / These will be the variables to delete from the top level namespace when we swap out a partition directory fixture
 .tst.findDirVars:{
  $[count where -1h = (type .Q.qp get@) each ` sv' `.,'tables `.;    /.Q.qp returns a boolean only when a table is a partition table or a splayed table
-  distinct .Q.pf,.Q.pt,pvals where not any (pvals:key `:.) like/:(string @[get;`.Q.pv;()]),enlist "par.txt";
+  distinct @[get;`.Q.pf;()],@[get;`.Q.pt;()],pvals where not any (pvals:key `:.) like/:(string @[get;`.Q.pv;()]),enlist "par.txt";
   ()]
  }
 
