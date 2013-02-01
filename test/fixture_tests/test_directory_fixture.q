@@ -1,6 +1,7 @@
 .tst.desc["Loading Directory Fixtures"]{
  before{
   `notAFixture mock 1 _ string ` sv (` vs .tst.tstPath)[0],`fixtures`not_a_fixture;
+  `emptyDir mock 1 _ string ` sv (` vs .tst.tstPath)[0],`fixtures`emptyDir;
   };
  should["clear any loaded partition"]{
   system "l ",notAFixture; 
@@ -29,5 +30,11 @@
   .tst.restoreDir[];
   `mytable mustin tables `;
   `othertable mustnin tables `;
+  };
+ should["load directory fixtures not containing partitions"]{
+  // Q doesn't clean up all internal variables between each file load. Simulate no previous db's having been loaded
+  system "l ", emptyDir;
+  .Q:`pv _ .Q;
+  mustnotthrow[();{fixture `no_part_fixture}];
   };
  };
