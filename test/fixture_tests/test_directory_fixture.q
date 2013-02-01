@@ -34,7 +34,7 @@
  should["load directory fixtures not containing partitions"]{
   // Q doesn't clean up all internal variables between each file load. Simulate no previous db's having been loaded
   system "l ", emptyDir;
-  .Q:`pv _ .Q;
+  .Q:`pv`pt`pf _ .Q;
   mustnotthrow[();{fixture `no_part_fixture}];
   };
  };
