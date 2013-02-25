@@ -1,3 +1,7 @@
+VERSION 1.2 -- 2013.02.25
+* Added new command line parameter --junit which outputs JUnit formatted XML Reports 
+* Added new command line parameter --xunit which outputs XUnit formatted XML Reports. Experimental untested report format.
+
 VERSION 1.1 -- 2011.04.26
 * Added new command line parameter --fail-fast that halts execution of further tests as soon as an error or failure is detected
 * Added new command line parameter --fail-hard that halts execution of further tests as soon as an error or failure occurs and drops into a Q session with the context of the failure
