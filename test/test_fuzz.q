@@ -72,7 +72,7 @@
 .tst.desc["The Fuzz Generator"]{
  should["return a list of fuzz values of the given type provided a symbol"]{
   type[.tst.pickFuzz[`symbol;1]] musteq 11h;
-  type[.tst.pickFuzz[`int;100]] musteq 6h;
+  type[.tst.pickFuzz[`long;100]] musteq 7h;
   type[.tst.pickFuzz[`time;10]] musteq 19h;
   };
  should["run a generator function once for every run requested"]{
@@ -81,9 +81,9 @@
    runsDone musteq 100;
   };
  should["return a table of distinct fuzz values given a dictionary"]{
-  r: .tst.pickFuzz[`a`b`c!`int`float`symbol;20];
+  r: .tst.pickFuzz[`a`b`c!`long`float`symbol;20];
   type[r] musteq 98h;
-  type[r`a] musteq 6h;
+  type[r`a] musteq 7h;
   type[r`b] musteq 9h;
   type[r`c] musteq 11h;
   };
