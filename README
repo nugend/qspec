@@ -13,7 +13,7 @@ should be cross platform.
 == INSTALLATION ==
 
 qspec as it is distributed requires the installation of the
-qutil library ( http://github.org/DannoHung/qutil ). Follow
+qutil library ( http://github.org/nugend/qutil ). Follow
 the qutil instructions and then unzip qspec to an acceptable
 location and then copy or link the lib directory inside
 qspec within the Q source code search path that you will have 
@@ -39,7 +39,7 @@ developing a script to perform substitutions for you.
 == TUTORIAL ==
 
 Please see the project wiki on github for instructions on usage:
-http://github.com/DannoHung/qspec/wiki
+http://github.com/nugend/qspec/wiki
 
 == LICENSE ==
 
@@ -58,4 +58,4 @@ it.
 
 Daniel Nugent 
 nugend@gmail.com
-http://github.com/DannoHung/qspec
+http://github.com/nugend/qspec
