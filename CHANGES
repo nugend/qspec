@@ -1,3 +1,6 @@
+VERSION 1.2.1 -- 2015.12.22
+* mustnotthrow and mustthrow can now accept like compatible string patterns
+
 VERSION 1.2 -- 2013.02.25
 * Added new command line parameter --junit which outputs JUnit formatted XML Reports 
 * Added new command line parameter --xunit which outputs XUnit formatted XML Reports. Experimental untested report format.

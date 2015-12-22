@@ -27,7 +27,7 @@ asserts[`mustthrow]:{[e;c];
  "one of the errors ", ("," sv {"'",x,"'"} each e), "."];
  p:1b;
  if[(not count r);m,:" No error thrown";p:0b];
- if[(count e) and not any r ~/:e;m,: " Error thrown: '",r,"'";p:0b];
+ if[(count e) and not any r like/:e;m,: " Error thrown: '",r,"'";p:0b];
  asserts.must[p;m]
  }
 
@@ -37,6 +37,6 @@ asserts[`mustnotthrow]:{[e;c];
  if[10h = type e;e:enlist e];
  p:1b;
  if[(count r) and not count e;m,:"an error. Error thrown: '",r,"'";p:0b];
- if[any r ~/:e;m,: "the error '",r,"'";p:0b];
+ if[any r like/:e;m,: "the error '",r,"'";p:0b];
  asserts.must[p;m]
  }

@@ -44,16 +44,19 @@
  should["report only thrown exceptions that were not supposed to have been thrown"]{
   mustnotthrow["foo";{'"foo"}];
   mustnotthrow["foo";{'"bar"}];
+  mustnotthrow["*foo*";{'"farfigfoogen"}];
   testedFailures: .tst.assertState.failures;
   .tst.assertState.failures:oldFailures;
   first[testedFailures] mustlike "*to not throw the error 'foo'*";
-  count[testedFailures] musteq 1;
+  last[testedFailures] mustlike "*to not throw the error 'farfigfoogen'*";
+  count[testedFailures] musteq 2;
   };
  should["report only unthrown exceptions that were supposed to have been thrown"]{
   mustthrow["foo";{'"bar"}];
   mustthrow["foo";{'"foo"}];
   mustthrow[("foo";"baz");{'"bar"}];
   mustthrow["foo";{""}];
+  mustthrow["*foo*";{'"farfigfoogen"}];
   testedFailures: .tst.assertState.failures;
   .tst.assertState.failures:oldFailures;
   testedFailures[0] mustlike "*the error 'foo'. Error thrown: 'bar'*";
