@@ -74,6 +74,7 @@
   type[.tst.pickFuzz[`symbol;1]] musteq 11h;
   type[.tst.pickFuzz[`long;100]] musteq 7h;
   type[.tst.pickFuzz[`time;10]] musteq 19h;
+  type[.tst.pickFuzz[`guid;10]] musteq 2h;
   };
  should["run a generator function once for every run requested"]{
   `runsDone mock 0;
@@ -81,11 +82,12 @@
    runsDone musteq 100;
   };
  should["return a table of distinct fuzz values given a dictionary"]{
-  r: .tst.pickFuzz[`a`b`c!`long`float`symbol;20];
+  r: .tst.pickFuzz[`a`b`c`d!`long`float`symbol`timespan;20];
   type[r] musteq 98h;
   type[r`a] musteq 7h;
   type[r`b] musteq 9h;
   type[r`c] musteq 11h;
+  type[r`d] musteq 16h;
   };
  should["return a list of elements from a general list"]{
   l: (10;`a;"foo";`a`b`c!1 2 3);
