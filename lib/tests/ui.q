@@ -13,23 +13,33 @@ after:{[code];
  uiSet[`currentAfter;code]
  }
 
+// Before and After values can be set after the expectation (under the specification)
+fillExpecBA:{
+  x:x[where {not `before in key x} each x],\:enlist[`before]!enlist currentBefore;
+  x[where {not `after in key x} each x],\:enlist[`after]!enlist currentAfter
+  }
+
 alt:{[code];                / Alt blocks allow different before/after behavior to be defined
  oldBefore: currentBefore;
  oldAfter: currentAfter;
+ oldExpecList: expecList;
  code[];
- `currentBefore`currentAfter uiSet' (oldBefore;oldAfter);
+ el:fillExpecBA 1 _ expecList;
+ / Reset environment
+ `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
+ expecList,:el;
  }
 
 should:{[des;code];
- expecList,: enlist .tst.internals.testObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter))
+ expecList,: enlist .tst.internals.testObj, (`desc`code!(des;code))
  }
 
 holds:{[des;props;code];
- expecList,: enlist .tst.internals.fuzzObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
+ expecList,: enlist .tst.internals.fuzzObj, (`desc`code!(des;code)), props
  }
 
 perf:{[des;props;code];
- expecList,: enlist .tst.internals.perfObj, (`desc`code`before`after!(des;code;currentBefore;currentAfter)), props
+ expecList,: enlist .tst.internals.perfObj, (`desc`code!(des;code)), props
  }
 
 uiRuntimeNames:`fixture`fixtureAs`mock
@@ -59,7 +69,7 @@ uiCode:(before;after;should;holds;perf;alt)
  (value string expectations)[];                           / See Note on Global References
  specObj[`context]: system "d";
  specObj[`tstPath]: .utl.FILELOADING;
- specObj[`expectations]:1 _ expecList;
+ specObj[`expectations]:fillExpecBA 1 _ expecList;
  / Reset environment
  `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
  .tst.restore[];

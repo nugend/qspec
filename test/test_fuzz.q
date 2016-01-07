@@ -6,6 +6,7 @@
   `.tst.restore mock {};
   `.tst.expecList mock .tst.expecList;
   `.tst.callbacks.expecRan mock {[x;y]}; / Mock this out so expectations run TO test running expectations don't count towards test expectations ran
+  `getExpec mock {last .tst.fillExpecBA 1 _ .tst.expecList};
   };
  after{
   myRestore[];
@@ -13,13 +14,13 @@
  should["run the fuzz test the number of times specified"]{
   `ran mock 0;
   holds["run this";((),`runs)!(),20]{ran+:1};
-  e: last .tst.expecList;
+  e:getExpec[];
   .tst.runExpec[();e];
   .tst.contextHelper[];
   ran musteq 20;
   `ran mock 0;
   holds["run this";((),`runs)!(),40]{ran+:1};
-  e: last .tst.expecList;
+  e:getExpec[];
   .tst.runExpec[();e];
   .tst.contextHelper[];
   ran musteq 40;
@@ -31,7 +32,7 @@
    ran+:1;
    if[ran > 9; 1 musteq 2]; / Force failure for a certain percentage
    };
-  e: last .tst.expecList;
+  e:getExpec[];
   e:.tst.runExpec[();e];
   .tst.contextHelper[];
   testedFailures: .tst.assertState.failures;
@@ -42,7 +43,7 @@
  should["not restore mocked variables between fuzz runs"]{
   `ran mock 0;
   holds["run this";((),`runs)!(),20]{ran+:1};
-  e: last .tst.expecList;
+  e:getExpec[];
   .tst.runExpec[();e];
   .tst.contextHelper[];
   ran musteq 20;
@@ -58,7 +59,7 @@
    bVar:: x`b;
    cVar:: x`c;
    };
-  e: last .tst.expecList;
+  e:getExpec[];
   .tst.runExpec[();e];
   .tst.contextHelper[];
   `a`b`c mustin xKey;

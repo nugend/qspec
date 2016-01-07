@@ -31,33 +31,35 @@
   };
  should["let you set a before function"]{
   `.tst.currentBefore mock .tst.currentBefore;
-  bFunction: {"unique message"};
+  bFunction: {"unique message before"};
   .tst.before bFunction;
   bFunction mustmatch .tst.currentBefore;
   };
  should["let you set an after function"]{
-  `curentAfter mock .tst.currentAfter;
-  aFunction: {"unique message"};
+  `.tst.currentAfter mock .tst.currentAfter;
+  aFunction: {"unique message after"};
   .tst.after aFunction;
   aFunction mustmatch .tst.currentAfter;
   };
  should["let you create an expectation"]{
   `.tst.expecList mock .tst.expecList;
-  description:"unique description";
-  func:{"unique message"};
+  description:"unique description expec";
+  func:{"unique message expec"};
   .tst.should[description;func];
-  1 musteq count 1 _ .tst.expecList;
-  description musteq first (1 _ .tst.expecList)[`desc];
-  func mustmatch first (1 _ .tst.expecList)[`code];
+  e:.tst.fillExpecBA 1 _ .tst.expecList;
+  1 musteq count e;
+  description musteq first e[`desc];
+  func mustmatch first e[`code];
   };
  should["let you create a fuzz expectation"]{
   `.tst.expecList mock .tst.expecList;
-  description:"unique description";
-  func:{"unique message"};
+  description:"unique description fuzz";
+  func:{"unique message fuzz"};
   .tst.holds[description;()!();func];
-  1 musteq count 1 _ .tst.expecList;
-  description musteq first (1 _ .tst.expecList)[`desc];
-  func mustmatch first (1 _ .tst.expecList)[`code];
+  e:.tst.fillExpecBA 1 _ .tst.expecList;
+  1 musteq count e;
+  description musteq first e[`desc];
+  func mustmatch first e[`code];
   };
  should["let you mask before and after functions inside of alternate blocks"]{
   `.tst.currentBefore`.tst.currentAfter mock' .tst[`currentBefore`currentAfter];
