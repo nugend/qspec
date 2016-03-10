@@ -46,7 +46,7 @@
   description:"unique description expec";
   func:{"unique message expec"};
   .tst.should[description;func];
-  e:.tst.fillExpecBA 1 _ .tst.expecList;
+  e:.tst.fillExpecBA .tst.expecList;
   1 musteq count e;
   description musteq first e[`desc];
   func mustmatch first e[`code];
@@ -56,22 +56,30 @@
   description:"unique description fuzz";
   func:{"unique message fuzz"};
   .tst.holds[description;()!();func];
-  e:.tst.fillExpecBA 1 _ .tst.expecList;
+  e:.tst.fillExpecBA .tst.expecList;
   1 musteq count e;
   description musteq first e[`desc];
   func mustmatch first e[`code];
   };
  should["let you mask before and after functions inside of alternate blocks"]{
   `.tst.currentBefore`.tst.currentAfter mock' .tst[`currentBefore`currentAfter];
-  .tst.before {"unique before"};
-  .tst.after {"unique after"};
-  .tst.alt {
-   .tst.before {"another before"};
-   .tst.after {"another after"};
-   {"another before"} mustmatch .tst.currentBefore;
-   {"another after"} mustmatch .tst.currentAfter;
-   };
-  {"unique before"} mustmatch .tst.currentBefore;
-  {"unique after"} mustmatch .tst.currentAfter;
+  `s mock .tst.desc["A spec"]{
+   .tst.alt {
+    should["retain this expectation"]{};
+    };
+   .tst.before {"unique before"};
+   .tst.after {"unique after"};
+   .tst.alt {
+    .tst.before {"another before"};
+    .tst.after {"another after"};
+    {"another before"} mustmatch .tst.currentBefore;
+    {"another after"} mustmatch .tst.currentAfter;
+    should["retain this expectation too"]{};
+    };
+    should["and this one"]{};
+  };
+  s[`expectations;`desc] mustmatch ("retain this expectation";"retain this expectation too";"and this one");
+  s[`expectations;`before] mustmatch (.tst.currentBefore;{"another before"};{"unique before"});
+  s[`expectations;`after] mustmatch (.tst.currentAfter;{"another after"};{"unique after"});
   };
  };

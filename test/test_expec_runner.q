@@ -7,7 +7,7 @@
   `.tst.currentBefore mock .tst.currentBefore;
   `.tst.currentAfter mock .tst.currentAfter;
   `.tst.callbacks.expecRan mock {[x;y]}; / Mock this out so expectations run TO test running expectations don't count towards test expectations ran
-  `getExpec mock {last .tst.fillExpecBA 1 _ .tst.expecList};
+  `getExpec mock {last .tst.fillExpecBA .tst.expecList};
   };
  after{
   myRestore[];

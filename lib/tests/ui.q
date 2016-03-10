@@ -1,7 +1,8 @@
 \d .tst
 uiSet:{.[`.tst;(),x;:;y]}
 
-expecList:enlist ()!() / Asserts are built up into this variable
+resetExpecList:{uiSet[`expecList;enlist ()!()]} / Asserts are built up into this variable
+resetExpecList[];
 currentBefore:{}
 currentAfter:{}
 
@@ -15,16 +16,17 @@ after:{[code];
 
 // Before and After values can be set after the expectation (under the specification)
 fillExpecBA:{
-  x:x[where {not `before in key x} each x],\:enlist[`before]!enlist currentBefore;
-  x[where {not `after in key x} each x],\:enlist[`after]!enlist currentAfter
+  x:@[x;1 _ where {not `before in key x} each x;{x,enlist[`before]!enlist currentBefore}];
+  1 _ @[x;1 _ where {not `after in key x} each x;{x,enlist[`after]!enlist currentAfter}]
   }
 
 alt:{[code];                / Alt blocks allow different before/after behavior to be defined
  oldBefore: currentBefore;
  oldAfter: currentAfter;
  oldExpecList: expecList;
+ resetExpecList[];
  code[];
- el:fillExpecBA 1 _ expecList;
+ el:fillExpecBA expecList;
  / Reset environment
  `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
  expecList,:el;
@@ -61,6 +63,7 @@ uiCode:(before;after;should;holds;perf;alt)
  oldBefore: currentBefore;
  oldAfter: currentAfter;
  oldExpecList: expecList;
+ resetExpecList[];
  specObj: .tst.internals.specObj;
  specObj[`title]:title;
  / set up the UI for the expectation call
@@ -69,7 +72,7 @@ uiCode:(before;after;should;holds;perf;alt)
  (value string expectations)[];                           / See Note on Global References
  specObj[`context]: system "d";
  specObj[`tstPath]: .utl.FILELOADING;
- specObj[`expectations]:fillExpecBA 1 _ expecList;
+ specObj[`expectations]:fillExpecBA expecList;
  / Reset environment
  `expecList`currentBefore`currentAfter uiSet' (oldExpecList;oldBefore;oldAfter);
  .tst.restore[];

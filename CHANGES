@@ -1,3 +1,6 @@
+VERSION 1.3.1 -- 2016.03.10
+* expectations in alt blocks should now execute
+
 VERSION 1.3.0 -- 2016.01.07
 * Fixed issue where before/after had to appear before expectations (removes unspecified behavior, could cause compatibility)
 
