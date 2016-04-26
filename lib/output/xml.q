@@ -13,14 +13,14 @@ xml.safeString:{
   }
 xml.attrib:{
   k:xml.safeString key x;
-  v:"\"",'(xml.entitySub xml.safeString value x),'"\"";
+  v:"\"",'(xml.entitySub each xml.safeString value x),'"\"";
   " " sv k,'"=",'v
   }
 
 xml.node:{[name;attrib;body];
   startNode:"<",(name:xml.safeString[name]),{$[count x;" ",x;""]}[xml.attrib[attrib]],$[count body;">";"/>"];
   $[count body;
-    ` sv (startNode;xml.bodySub xml.safeString body;"</",name,">");
+    ` sv (startNode;xml.safeString body;"</",name,">");
     startNode
     ]
   }

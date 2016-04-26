@@ -19,7 +19,7 @@ output[`expectation]:{[e];
   sysout:output[e`type][e];
   atr:`name`label`errors`failures`skip`tests!(name;label;e[`result] like "*Error";count e`failures;0;e`assertsRun);
   xml.node["test-case";atr] $[(e[`result] like "*Error") or count e`failures;
-    xml.node["sysout";()!();sysout];
+    xml.node["sysout";()!();xml.bodySub sysout];
     ""
     ]
   }
