@@ -10,8 +10,8 @@
 .utl.addOpt["xunit";1b;(`.tst.app.xmlOutput;{if[x;.tst.loadOutputModule["xunit"]];x})];
 .utl.addOpt["junit";1b;(`.tst.app.xmlOutput;{if[x;.tst.loadOutputModule["junit"]];x})];
 .utl.addOpt["perf,performance";1b;`.tst.app.runPerformance]
-.utl.addOpt["exclude";(),"*";`.tst.app.excludeSpecs]
-.utl.addOpt["only";(),"*";`.tst.app.runSpecs]
+.utl.addOpt["exclude";(),"*";(`.tst.app.excludeSpecs;{"," vs " " sv x})]
+.utl.addOpt["only";(),"*";(`.tst.app.runSpecs;{"," vs " " sv x})]
 .utl.addOpt["pass";1b;`.tst.app.passOnly]
 .utl.addOpt["noquit";0b;`.tst.app.exit]
 .utl.addOpt["fuzz-display-limt,fdl";"I";`.tst.output.fuzzLimit]
