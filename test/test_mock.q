@@ -23,4 +23,14 @@
  should["refuse to mock a top level namespace"]{
   mustthrow[()] { `.tst mock ` };
   };
+ should["support data namespaces within the global namespace"]{
+  `..ns.foo set 0;
+  `ns.foo mock 1;
+  `ns.bar mock 2;
+  ns.foo musteq 1;
+  .tst.restore[];
+  (get `..ns.foo) musteq 0;
+  mustthrow["..ns.bar"] {get `..ns.bar};
+  delete ns from `.;
+  };
  };
