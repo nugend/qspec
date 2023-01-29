@@ -6,10 +6,10 @@ removeList:()
 / until restored.  Standard variable re-assignment caveats apply
 / CAUTION: Mocking out the mock functions and variables is inadvisable
 mock:{[name;newVal];
- name:$[1 = c: count ` vs name;
+ name:$[$[1 = c:count vn:` vs name;1b;not null first vn];
   / Create fully qualified name if given a local one
   ` sv .tst.context,name;
-  (2 = c) and ` ~ first ` vs name;
+  (2 = c) and ` ~ first vn;
   '"Can't mock top-level namespaces!";
   name];
  / Early abort if name will be removed later
