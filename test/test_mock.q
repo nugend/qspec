@@ -23,4 +23,7 @@
  should["refuse to mock a top level namespace"]{
   mustthrow[()] { `.tst mock ` };
   };
+ should["support namespaces at top level that are just local variables"]{
+  mustnotthrow[()] {`var.name mock 1};
+  };
  };
