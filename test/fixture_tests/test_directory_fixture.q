@@ -33,7 +33,7 @@
   };
  should["load directory fixtures not containing partitions"]{
   // Newer Q versions will load hidden files
-  hdel ep:` so (hsym `$emptyDir;`.empty);
+  hdel ep:` sv (hsym `$emptyDir;`.empty);
   // Q doesn't clean up all internal variables between each file load. Simulate no previous db's having been loaded
   system "l ", emptyDir;
   .Q:`pv`pt`pf _ .Q;
